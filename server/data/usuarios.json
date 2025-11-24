@@ -2,28 +2,33 @@
   "usuarios": [
     {
       "id": 1,
-      "username": "admin",
-      "password": "1234"
+      "usuario": "admin",
+      "password": "1234",
+      "nombre": "Administrador"
     },
     {
       "id": 2,
-      "username": "usuario",
-      "password": "abcd"
+      "usuario": "usuario",
+      "password": "abcd",
+      "nombre": "Usuario Regular"
     },
-     {
+    {
       "id": 3,
-      "username": "DAW2",
-      "password": "DAW2"
+      "usuario": "DAW2",
+      "password": "DAW2",
+      "nombre": "DAW2"
     },
     {
       "id": 4,
-      "username": "CristinaRoman",
-      "password": "CristinaRoman"
+      "usuario": "CristinaRoman",
+      "password": "CristinaRoman",
+      "nombre": "Cristina Román"
     },
     {
       "id": 5,
-      "username": "CarlosBasulto",
-      "password": "CarlosBasulto"
+      "usuario": "CarlosBasulto",
+      "password": "CarlosBasulto",
+      "nombre": "Carlos Basulto"
     }
   ]
 }
