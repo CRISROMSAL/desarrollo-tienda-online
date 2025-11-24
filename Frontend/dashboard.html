@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Tienda Moda</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">ReCordis</div>
+        <div class="logo">
+            <a href="dashboard.html">
+                <img src="imagenes/Logotipo.png" alt="Logotipo Recordis" class="logo-img">
+    </a>
+        </div>
+        <div class="user-actions">
+            <span id="welcomeMsg">Hola, Usuario</span>
+            <a href="carrito.html" class="btn-cart">Carrito (<span id="cartCount">0</span>)</a>
+            <button id="logoutBtn" class="btn-logout">Cerrar Sesión</button>
+        </div>
+    </nav>
+
+    <header class="hero-section">
+        <h1>Nueva Colección Primavera-Verano</h1>
+        <p>Descubre las últimas tendencias</p>
+    </header>
+
+    <main class="container">
+        <section class="categories-section">
+            <h2>Categorías</h2>
+            <div id="categoriesContainer" class="grid-categories">
+                </div>
+        </section>
+
+        <section class="featured-section">
+            <h2>Productos Destacados</h2>
+            <div id="featuredContainer" class="grid-products">
+                </div>
+        </section>
+        
+        <section class="recent-section" id="recentSection" style="display:none;">
+            <h2>Vistos Recientemente</h2>
+            <div id="recentContainer" class="grid-products">
+                </div>
+        </section>
+    </main>
+
+    <script type="module" src="js/paginas/dashboard.js"></script>
+</body>
+</html>
