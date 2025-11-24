@@ -3,12 +3,27 @@
     {
       "id": 1,
       "username": "admin",
-      "password": "admin123"
+      "password": "1234"
     },
     {
       "id": 2,
-      "username": "cliente1",
-      "password": "cliente123"
+      "username": "usuario",
+      "password": "abcd"
+    },
+     {
+      "id": 3,
+      "username": "DAW2",
+      "password": "DAW2"
+    },
+    {
+      "id": 4,
+      "username": "CristinaRoman",
+      "password": "CristinaRoman"
+    },
+    {
+      "id": 5,
+      "username": "CarlosBasulto",
+      "password": "CarlosBasulto"
     }
   ]
 }
