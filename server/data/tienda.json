@@ -1,0 +1,156 @@
+{
+  "categorias": [
+    {
+      "id": 1,
+      "nombre": "Tops",
+      "descripcion": "Camisetas, blusas y tops de última tendencia",
+      "imagen": "images/categories/tops.jpg"
+    },
+    {
+      "id": 2,
+      "nombre": "Faldas",
+      "descripcion": "Faldas modernas para cualquier ocasión",
+      "imagen": "images/categories/faldas.jpg"
+    },
+    {
+      "id": 3,
+      "nombre": "Neceseres",
+      "descripcion": "Neceseres prácticos y elegantes",
+      "imagen": "images/categories/neceseres.jpg"
+    },
+    {
+      "id": 4,
+      "nombre": "Bolsos",
+      "descripcion": "Bolsos de moda para complementar tu look",
+      "imagen": "images/categories/bolsos.jpg"
+    },
+    {
+      "id": 5,
+      "nombre": "Flamenca",
+      "descripcion": "Moda flamenca tradicional y moderna",
+      "imagen": "images/categories/flamenca.jpg"
+    },
+    {
+      "id": 6,
+      "nombre": "Accesorios",
+      "descripcion": "Complementos para completar tu estilo",
+      "imagen": "images/categories/accesorios.jpg"
+    },
+    {
+      "id": 7,
+      "nombre": "Bebés",
+      "descripcion": "Ropa y accesorios para los más pequeños",
+      "imagen": "images/categories/bebes.jpg"
+    }
+  ],
+  "productos": [
+    {
+      "id": 1,
+      "nombre": "Top Crop Blanco",
+      "descripcion": "Top crop de algodón orgánico, perfecto para combinar con cualquier outfit. Disponible en talla S, M y L. Material suave y transpirable.",
+      "precio": 24.99,
+      "imagen": "images/products/top1.jpg",
+      "destacado": true,
+      "id_categoria": 1,
+      "stock": 15,
+      "tallas": ["S", "M", "L"],
+      "colores": ["Blanco", "Negro", "Rosa"]
+    },
+    {
+      "id": 2,
+      "nombre": "Blusa Floral Verano",
+      "descripcion": "Blusa ligera con estampado floral, ideal para días de calor. Manga corta y corte holgado para máxima comodidad.",
+      "precio": 32.50,
+      "imagen": "images/products/top2.jpg",
+      "destacado": true,
+      "id_categoria": 1,
+      "stock": 8,
+      "tallas": ["XS", "S", "M", "L", "XL"],
+      "colores": ["Multicolor"]
+    },
+    {
+      "id": 3,
+      "nombre": "Falda Midi Plisada",
+      "descripcion": "Elegante falda plisada de largo midi. Perfecta para ocasiones especiales o para ir a la oficina. Cintura elástica para mayor comodidad.",
+      "precio": 45.00,
+      "imagen": "images/products/falda1.jpg",
+      "destacado": false,
+      "id_categoria": 2,
+      "stock": 12,
+      "tallas": ["S", "M", "L", "XL"],
+      "colores": ["Negro", "Azul marino", "Burdeos"]
+    },
+    {
+      "id": 4,
+      "nombre": "Falda Vaquera Corta",
+      "descripcion": "Falda vaquera de estilo casual con botones frontales. Perfecta para un look informal y juvenil.",
+      "precio": 38.90,
+      "imagen": "images/products/falda2.jpg",
+      "destacado": true,
+      "id_categoria": 2,
+      "stock": 20,
+      "tallas": ["XS", "S", "M", "L"],
+      "colores": ["Azul claro", "Negro"]
+    },
+    {
+      "id": 5,
+      "nombre": "Neceser Floral Grande",
+      "descripcion": "Neceser espacioso con diseño floral. Interior forrado e impermeable. Ideal para viajes o uso diario.",
+      "precio": 18.99,
+      "imagen": "images/products/neceser1.jpg",
+      "destacado": false,
+      "id_categoria": 3,
+      "stock": 25,
+      "tallas": ["Único"],
+      "colores": ["Rosa", "Azul", "Verde"]
+    },
+    {
+      "id": 6,
+      "nombre": "Bolso Tote Piel",
+      "descripcion": "Bolso tipo tote de piel sintética de alta calidad. Espacioso y elegante, perfecto para el día a día. Incluye bolsillo interior con cremallera.",
+      "precio": 56.00,
+      "imagen": "images/products/bolso1.jpg",
+      "destacado": true,
+      "id_categoria": 4,
+      "stock": 10,
+      "tallas": ["Único"],
+      "colores": ["Negro", "Marrón", "Beige"]
+    },
+    {
+      "id": 7,
+      "nombre": "Vestido Flamenca Rojo",
+      "descripcion": "Vestido de flamenca tradicional con volantes en manga y falda. Confeccionado en tejido de alta calidad con lunares blancos.",
+      "precio": 189.99,
+      "imagen": "images/products/flamenca1.jpg",
+      "destacado": true,
+      "id_categoria": 5,
+      "stock": 5,
+      "tallas": ["XS", "S", "M", "L"],
+      "colores": ["Rojo", "Negro", "Azul"]
+    },
+    {
+      "id": 8,
+      "nombre": "Pendientes Aro Grandes",
+      "descripcion": "Pendientes de aro grandes en acero inoxidable. Diseño minimalista y elegante que combina con cualquier estilo.",
+      "precio": 12.50,
+      "imagen": "images/products/accesorio1.jpg",
+      "destacado": false,
+      "id_categoria": 6,
+      "stock": 30,
+      "tallas": ["Único"],
+      "colores": ["Dorado", "Plateado", "Oro rosa"]
+    },
+    {
+      "id": 9,
+      "nombre": "Conjunto Bebé Algodón",
+      "descripcion": "Conjunto de dos piezas para bebé en algodón 100%. Incluye body y pantalón. Suave y delicado con la piel del bebé.",
+      "precio": 28.00,
+      "imagen": "images/products/bebe1.jpg",
+      "destacado": false,
+      "id_categoria": 7,
+      "stock": 18,
+      "tallas": ["0-3M", "3-6M", "6-12M"],
+      "colores": ["Blanco", "Rosa", "Azul"]
+    }
+  ]
+}
