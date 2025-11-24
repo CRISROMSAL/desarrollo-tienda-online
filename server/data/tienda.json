@@ -3,31 +3,31 @@
     {
       "id": 1,
       "nombre": "Tops",
-      "descripcion": "Camisetas, blusas y tops de última tendencia",
+      "descripcion": "Camisetas y tops colección primavera-verano",
       "imagen": "images/categories/tops.jpg"
     },
     {
       "id": 2,
       "nombre": "Faldas",
-      "descripcion": "Faldas modernas para cualquier ocasión",
+      "descripcion": "Faldas pareo colección primavera-verano",
       "imagen": "images/categories/faldas.jpg"
     },
     {
       "id": 3,
       "nombre": "Neceseres",
-      "descripcion": "Neceseres prácticos y elegantes",
+      "descripcion": "Neceseres colección primavera-verano",
       "imagen": "images/categories/neceseres.jpg"
     },
     {
       "id": 4,
       "nombre": "Bolsos",
-      "descripcion": "Bolsos de moda para complementar tu look",
+      "descripcion": "Bolsos de croché tejidos a mano. Colección primavera-verano",
       "imagen": "images/categories/bolsos.jpg"
     },
     {
       "id": 5,
       "nombre": "Flamenca",
-      "descripcion": "Moda flamenca tradicional y moderna",
+      "descripcion": "Moda flamenca para ferias y romerías",
       "imagen": "images/categories/flamenca.jpg"
     },
     {
