@@ -46,32 +46,32 @@
   "productos": [
     {
       "id": 1,
-      "nombre": "Top Crop Blanco",
-      "descripcion": "Top crop de algodón orgánico, perfecto para combinar con cualquier outfit. Disponible en talla S, M y L. Material suave y transpirable.",
-      "precio": 24.99,
+      "nombre": "Top flores",
+      "descripcion": "Top flores asimétrico con espalda drapeada.",
+      "precio": 20.00,
       "imagen": "images/products/top1.jpg",
       "destacado": true,
       "id_categoria": 1,
       "stock": 15,
       "tallas": ["S", "M", "L"],
-      "colores": ["Blanco", "Negro", "Rosa"]
+      "colores": ["Rosa", "Rojo"]
     },
     {
       "id": 2,
-      "nombre": "Blusa Floral Verano",
-      "descripcion": "Blusa ligera con estampado floral, ideal para días de calor. Manga corta y corte holgado para máxima comodidad.",
-      "precio": 32.50,
+      "nombre": "Top nube",
+      "descripcion": "Top con texturas asimétrico con espalda drapeada.",
+      "precio": 20.00,
       "imagen": "images/products/top2.jpg",
       "destacado": true,
       "id_categoria": 1,
       "stock": 8,
-      "tallas": ["XS", "S", "M", "L", "XL"],
-      "colores": ["Multicolor"]
+      "tallas": ["S", "M", "L"],
+      "colores": ["Blanco"]
     },
     {
       "id": 3,
-      "nombre": "Falda Midi Plisada",
-      "descripcion": "Elegante falda plisada de largo midi. Perfecta para ocasiones especiales o para ir a la oficina. Cintura elástica para mayor comodidad.",
+      "nombre": "Top lazada",
+      "descripcion": "Top palanra de honor fruncido con ciere de laza maxi.",
       "precio": 45.00,
       "imagen": "images/products/falda1.jpg",
       "destacado": false,
