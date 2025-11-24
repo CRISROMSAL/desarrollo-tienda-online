@@ -15,15 +15,12 @@ const SECRET_KEY = 'miClaveSecretaSuperSegura2024TiendaModa';
 // ============================================
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '../client')));
+app.use(express.static(path.join(__dirname, '..')));
 
 // ============================================
 // FUNCIONES JWT MANUALES
 // ============================================
 
-/**
- * Codifica datos en Base64URL (formato JWT)
- */
 function base64UrlEncode(str) {
   return Buffer.from(str)
     .toString('base64')
@@ -32,9 +29,6 @@ function base64UrlEncode(str) {
     .replace(/=/g, '');
 }
 
-/**
- * Decodifica Base64URL a string
- */
 function base64UrlDecode(str) {
   str = str.replace(/-/g, '+').replace(/_/g, '/');
   while (str.length % 4) {
@@ -43,9 +37,6 @@ function base64UrlDecode(str) {
   return Buffer.from(str, 'base64').toString('utf-8');
 }
 
-/**
- * Crea la firma HMAC SHA256
- */
 function crearFirma(header, payload) {
   const data = `${header}.${payload}`;
   return crypto
@@ -57,36 +48,26 @@ function crearFirma(header, payload) {
     .replace(/=/g, '');
 }
 
-/**
- * GENERAR TOKEN JWT completo
- */
 function generarToken(payload) {
-  // 1. HEADER
   const header = {
     alg: 'HS256',
     typ: 'JWT'
   };
   const headerEncoded = base64UrlEncode(JSON.stringify(header));
 
-  // 2. PAYLOAD
   const now = Math.floor(Date.now() / 1000);
   const payloadCompleto = {
     ...payload,
     iat: now,
-    exp: now + (24 * 60 * 60) // 24 horas
+    exp: now + (24 * 60 * 60)
   };
   const payloadEncoded = base64UrlEncode(JSON.stringify(payloadCompleto));
 
-  // 3. SIGNATURE
   const signature = crearFirma(headerEncoded, payloadEncoded);
 
-  // 4. TOKEN COMPLETO
   return `${headerEncoded}.${payloadEncoded}.${signature}`;
 }
 
-/**
- * VERIFICAR TOKEN JWT
- */
 function verificarToken(token) {
   try {
     const partes = token.split('.');
@@ -96,17 +77,14 @@ function verificarToken(token) {
 
     const [headerEncoded, payloadEncoded, signatureRecibida] = partes;
 
-    // Verificar firma
     const signatureCalculada = crearFirma(headerEncoded, payloadEncoded);
     if (signatureRecibida !== signatureCalculada) {
       console.log('❌ Firma inválida');
       return null;
     }
 
-    // Decodificar payload
     const payload = JSON.parse(base64UrlDecode(payloadEncoded));
 
-    // Verificar expiración
     const now = Math.floor(Date.now() / 1000);
     if (payload.exp && payload.exp < now) {
       console.log('❌ Token expirado');
@@ -120,9 +98,6 @@ function verificarToken(token) {
   }
 }
 
-/**
- * MIDDLEWARE de autenticación
- */
 function middlewareAuth(req, res, next) {
   const authHeader = req.headers['authorization'];
   
@@ -177,38 +152,244 @@ function cargarDatos() {
 cargarDatos();
 
 // ============================================
-// EXPORTAR PARA USO EN RUTAS
+// ENDPOINTS API
 // ============================================
-module.exports = {
-  app,
-  generarToken,
-  verificarToken,
-  middlewareAuth,
-  usuarios,
-  tienda
-};
 
-// ============================================
-// IMPORTAR RUTAS MODULARES
-// ============================================
-const loginRouter = require('./login');
-const carritoRouter = require('./carrito');
-const categoriaRouter = require('./categoria');
-const dashboardRouter = require('./dashboard');
-const productosRouter = require('./productos');
+// 🔐 LOGIN
+app.post('/api/login', (req, res) => {
+  const { usuario, password } = req.body;
 
-// Asignar rutas
-app.use('/api', loginRouter);
-app.use('/api', carritoRouter);
-app.use('/api', categoriaRouter);
-app.use('/api', dashboardRouter);
-app.use('/api', productosRouter);
+  console.log('🔐 Intento de login:', usuario);
+
+  if (!usuario || !password) {
+    return res.status(400).json({
+      error: true,
+      mensaje: 'Usuario y contraseña son requeridos'
+    });
+  }
+
+  const usuarioEncontrado = usuarios.find(
+    u => u.usuario === usuario && u.password === password
+  );
+
+  if (!usuarioEncontrado) {
+    console.log('❌ Login fallido');
+    return res.status(401).json({
+      error: true,
+      mensaje: 'Credenciales incorrectas'
+    });
+  }
+
+  const token = generarToken({
+    id: usuarioEncontrado.id,
+    usuario: usuarioEncontrado.usuario,
+    nombre: usuarioEncontrado.nombre
+  });
+
+  console.log('✅ Login exitoso:', usuario);
+
+  res.json({
+    error: false,
+    mensaje: 'Login exitoso',
+    token: token,
+    usuario: {
+      id: usuarioEncontrado.id,
+      usuario: usuarioEncontrado.usuario,
+      nombre: usuarioEncontrado.nombre
+    },
+    tienda: {
+      categorias: tienda.categorias,
+      productos: tienda.productos
+    }
+  });
+});
+
+// 🏠 DASHBOARD
+app.get('/api/dashboard', middlewareAuth, (req, res) => {
+  console.log('📊 Dashboard solicitado por:', req.usuario.usuario);
+
+  const destacados = tienda.productos.filter(p => p.destacado === true);
+
+  res.json({
+    error: false,
+    usuario: req.usuario,
+    productosDestacados: destacados,
+    categorias: tienda.categorias,
+    estadisticas: {
+      totalProductos: tienda.productos.length,
+      totalCategorias: tienda.categorias.length,
+      productosDestacados: destacados.length
+    }
+  });
+});
+
+// 📂 CATEGORÍAS
+app.get('/api/categorias', middlewareAuth, (req, res) => {
+  console.log('📂 Categorías solicitadas por:', req.usuario.usuario);
+
+  res.json({
+    error: false,
+    categorias: tienda.categorias
+  });
+});
+
+app.get('/api/categorias/:id', middlewareAuth, (req, res) => {
+  const categoriaId = parseInt(req.params.id);
+  
+  console.log('📂 Categoría solicitada:', categoriaId);
+
+  const categoria = tienda.categorias.find(c => c.id === categoriaId);
+
+  if (!categoria) {
+    return res.status(404).json({
+      error: true,
+      mensaje: 'Categoría no encontrada'
+    });
+  }
+
+  const productosCategoria = tienda.productos.filter(
+    p => p.id_categoria === categoriaId
+  );
+
+  res.json({
+    error: false,
+    categoria: categoria,
+    productos: productosCategoria
+  });
+});
+
+// 🛍️ PRODUCTOS
+app.get('/api/productos', middlewareAuth, (req, res) => {
+  console.log('🛍️ Productos solicitados');
+
+  res.json({
+    error: false,
+    productos: tienda.productos
+  });
+});
+
+app.get('/api/productos/destacados', middlewareAuth, (req, res) => {
+  console.log('⭐ Productos destacados solicitados');
+
+  const destacados = tienda.productos.filter(p => p.destacado === true);
+
+  res.json({
+    error: false,
+    productos: destacados
+  });
+});
+
+app.get('/api/productos/:id', middlewareAuth, (req, res) => {
+  const productoId = parseInt(req.params.id);
+  
+  console.log('🛍️ Producto solicitado:', productoId);
+
+  const producto = tienda.productos.find(p => p.id === productoId);
+
+  if (!producto) {
+    return res.status(404).json({
+      error: true,
+      mensaje: 'Producto no encontrado'
+    });
+  }
+
+  res.json({
+    error: false,
+    producto: producto
+  });
+});
+
+// 🛒 CARRITO - VALIDACIÓN
+app.post('/api/carrito/validar', middlewareAuth, (req, res) => {
+  const { productos: productosCarrito } = req.body;
+
+  console.log('🛒 Validando carrito de:', req.usuario.usuario);
+
+  if (!productosCarrito || !Array.isArray(productosCarrito)) {
+    return res.status(400).json({
+      error: true,
+      mensaje: 'Formato de carrito inválido'
+    });
+  }
+
+  if (productosCarrito.length === 0) {
+    return res.status(400).json({
+      error: true,
+      mensaje: 'El carrito está vacío'
+    });
+  }
+
+  let precioTotalReal = 0;
+  const errores = [];
+  const productosValidados = [];
+
+  for (const item of productosCarrito) {
+    const productoReal = tienda.productos.find(p => p.id === item.id);
+
+    if (!productoReal) {
+      errores.push(`Producto con ID ${item.id} no existe`);
+      continue;
+    }
+
+    if (productoReal.precio !== item.precio) {
+      errores.push(
+        `Precio manipulado en "${productoReal.nombre}". ` +
+        `Real: ${productoReal.precio}€, Recibido: ${item.precio}€`
+      );
+      continue;
+    }
+
+    if (item.cantidad > productoReal.stock) {
+      errores.push(
+        `Stock insuficiente para "${productoReal.nombre}". ` +
+        `Disponible: ${productoReal.stock}, Solicitado: ${item.cantidad}`
+      );
+      continue;
+    }
+
+    const subtotal = productoReal.precio * item.cantidad;
+    precioTotalReal += subtotal;
+
+    productosValidados.push({
+      id: productoReal.id,
+      nombre: productoReal.nombre,
+      precio: productoReal.precio,
+      cantidad: item.cantidad,
+      subtotal: subtotal
+    });
+  }
+
+  if (errores.length > 0) {
+    console.log('❌ Validación fallida');
+    return res.status(400).json({
+      error: true,
+      mensaje: 'Error en la validación del carrito',
+      errores: errores
+    });
+  }
+
+  const pedido = {
+    id: `PED-${Date.now()}`,
+    fecha: new Date().toISOString(),
+    usuario: req.usuario.usuario,
+    productos: productosValidados,
+    total: precioTotalReal.toFixed(2)
+  };
+
+  console.log('✅ Carrito validado - Total:', pedido.total + '€');
+
+  res.json({
+    error: false,
+    mensaje: '¡Pedido procesado correctamente!',
+    pedido: pedido
+  });
+});
 
 // ============================================
 // RUTA RAÍZ
 // ============================================
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client', 'login.html'));
+  res.sendFile(path.join(__dirname, '..', 'login.html'));
 });
 
 // ============================================

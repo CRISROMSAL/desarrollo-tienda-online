@@ -1,59 +1,96 @@
-const express = require('express');
-const router = express.Router();
-const { generarToken, usuarios, tienda } = require('./server');
-
 /**
- * POST /api/login
- * Autentica al usuario y devuelve token + info completa de la tienda
+ * login.js
+ * Maneja el formulario de login y autenticación
  */
-router.post('/login', (req, res) => {
-  const { username, password } = req.body;
 
-  console.log('🔐 Intento de login:', username);
+const API_URL = 'http://localhost:3000/api';
 
-  // Validar campos obligatorios
-  if (!username || !password) {
-    return res.status(400).json({
-      error: true,
-      mensaje: 'Usuario y contraseña son obligatorios'
-    });
+document.addEventListener('DOMContentLoaded', () => {
+  // Si ya está autenticado, redirigir al dashboard
+  if (estaAutenticado()) {
+    window.location.href = 'dashboard.html';
+    return;
   }
 
-  // Buscar usuario en la base de datos
-  const usuario = usuarios.find(
-    u => u.username === username && u.password === password
-  );
+  const loginForm = document.getElementById('login-form');
+  const errorMessage = document.getElementById('error-message');
+  const loadingSpinner = document.getElementById('loading-spinner');
 
-  if (!usuario) {
-    console.log('❌ Login fallido: credenciales incorrectas');
-    return res.status(401).json({
-      error: true,
-      mensaje: 'Usuario o contraseña incorrectos'
-    });
-  }
+  loginForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-  // Generar token JWT
-  const token = generarToken({
-    id: usuario.id,
-    username: usuario.username
-  });
+    const usuario = document.getElementById('usuario').value.trim();
+    const password = document.getElementById('password').value;
 
-  console.log('✅ Login exitoso:', username);
+    // Validación básica
+    if (!usuario || !password) {
+      mostrarError('Por favor, completa todos los campos');
+      return;
+    }
 
-  // Responder con token y TODA la información de la tienda
-  res.json({
-    error: false,
-    mensaje: 'Login exitoso',
-    token: token,
-    usuario: {
-      id: usuario.id,
-      username: usuario.username
-    },
-    tienda: {
-      categorias: tienda.categorias,
-      productos: tienda.productos
+    // Mostrar spinner y ocultar error
+    loadingSpinner.style.display = 'block';
+    errorMessage.style.display = 'none';
+
+    try {
+      const response = await fetch(`${API_URL}/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ usuario, password })
+      });
+
+      const data = await response.json();
+
+      if (data.error) {
+        mostrarError(data.mensaje || 'Error al iniciar sesión');
+        loadingSpinner.style.display = 'none';
+        return;
+      }
+
+      // Login exitoso
+      console.log('✅ Login exitoso');
+
+      // Guardar token
+      guardarToken(data.token);
+
+      // Guardar datos del usuario
+      guardarUsuario(data.usuario);
+
+      // Guardar información de la tienda
+      guardarTienda(data.tienda);
+
+      // Mostrar mensaje de éxito
+      mostrarExito('¡Bienvenido! Redirigiendo...');
+
+      // Redirigir al dashboard
+      setTimeout(() => {
+        window.location.href = 'dashboard.html';
+      }, 1000);
+
+    } catch (error) {
+      console.error('❌ Error en el login:', error);
+      mostrarError('Error de conexión con el servidor');
+      loadingSpinner.style.display = 'none';
     }
   });
-});
 
-module.exports = router;
+  /**
+   * Muestra un mensaje de error
+   */
+  function mostrarError(mensaje) {
+    errorMessage.textContent = mensaje;
+    errorMessage.className = 'message error';
+    errorMessage.style.display = 'block';
+  }
+
+  /**
+   * Muestra un mensaje de éxito
+   */
+  function mostrarExito(mensaje) {
+    errorMessage.textContent = mensaje;
+    errorMessage.className = 'message success';
+    errorMessage.style.display = 'block';
+  }
+});
