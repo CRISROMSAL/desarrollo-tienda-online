@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categoría | Tienda Moda</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">
+            <a href="dashboard.html">
+                <img src="imagenes/logotipo.png" alt="Logotipo ReCordis" class="logo-img">
+            </a>
+        </div>
+        <div class="user-actions">
+            <a href="dashboard.html" class="btn-back">Inicio</a>
+            <a href="carrito.html" class="btn-cart">Carrito (<span id="cartCount">0</span>)</a>
+        </div>
+    </nav>
+
+    <main class="container category-page">
+        <header class="category-header">
+            <h1 id="categoryTitle">Cargando...</h1>
+            <p id="categoryDesc">Explora nuestros productos</p>
+        </header>
+
+        <section class="products-grid">
+            <div id="productsContainer" class="grid-products">
+                </div>
+        </section>
+    </main>
+
+    <script type="module" src="/js/pages/categorias.js"></script>
+</body>
+</html>

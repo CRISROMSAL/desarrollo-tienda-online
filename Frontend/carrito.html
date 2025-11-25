@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Carrito | Tienda Moda</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">
+            <a href="dashboard.html">
+                <img src="imagenes/logotipo.png" alt="Logotipo ReCordis" class="logo-img">
+            </a>
+        </div>
+        <div class="user-actions">
+            <a href="dashboard.html" class="btn-back">← Seguir Comprando</a>
+        </div>
+    </nav>
+
+    <main class="cart-container">
+        <h1>Tu Cesta de Compra</h1>
+
+        <div class="cart-layout">
+            <section class="cart-items" id="contenedor-items">
+                <p>Cargando carrito...</p>
+            </section>
+
+            <aside class="cart-summary">
+                <h2>Resumen del Pedido</h2>
+                
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span id="subtotal-precio">0.00€</span>
+                </div>
+                <div class="summary-row">
+                    <span>Envío</span>
+                    <span>Gratis</span>
+                </div>
+                <hr>
+                <div class="summary-row total">
+                    <span>Total</span>
+                    <span id="total-precio">0.00€</span>
+                </div>
+
+                <button id="btn-procesar-compra" class="btn-checkout">
+                    FINALIZAR COMPRA
+                </button>
+                <p id="mensaje-error" class="error-msg" style="display:none; color:red; margin-top:10px;"></p>
+            </aside>
+        </div>
+    </main>
+
+    <script type="module" src="/js/pages/carrito.js"></script>
+</body>
+</html>

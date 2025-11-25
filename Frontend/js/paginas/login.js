@@ -1,5 +1,5 @@
-// public/js/pages/login.js
-import { Sesion } from '../classes/Sesion.js';
+// public/js/paginas/login.js
+import { Sesion } from '../clases/Sesion.js';
 
 // Instanciamos la clase (Programación Orientada a Objetos)
 const sesion = new Sesion();

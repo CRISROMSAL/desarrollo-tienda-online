@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del Producto | Tienda Moda</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">
+            <a href="dashboard.html">
+                <img src="imagenes/logotipo.png" alt="Logotipo ReCordis" class="logo-img">
+            </a>
+        </div>
+        <div class="user-actions">
+            <a href="javascript:history.back()" class="btn-back">← Volver</a>
+            <a href="carrito.html" class="btn-cart">Carrito (<span id="cartCount">0</span>)</a>
+        </div>
+    </nav>
+
+    <main class="container product-detail-page">
+        <div class="product-layout">
+            
+            <div class="product-image-container">
+                <img id="imgDetalle" src="" alt="Producto" class="main-img">
+            </div>
+
+            <div class="product-info-container">
+                <span class="badge-stock" id="stockBadge">En Stock</span>
+                <h1 id="tituloDetalle">Cargando...</h1>
+                <p id="precioDetalle" class="detail-price">0.00€</p>
+                <p id="descDetalle" class="detail-desc">...</p>
+
+                <hr>
+
+                <div class="variants">
+                    <div class="variant-group">
+                        <label>Color:</label>
+                        <div id="coloresContainer" class="options-container">
+                            </div>
+                    </div>
+
+                    <div class="variant-group">
+                        <label>Talla:</label>
+                        <div id="tallasContainer" class="options-container">
+                            </div>
+                    </div>
+                </div>
+
+                <div class="action-area">
+                    <button id="btnAgregar" class="btn-primary btn-large">
+                        AÑADIR A LA CESTA
+                    </button>
+                    <p id="msgFeedback" class="success-msg" style="display:none;"></p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script type="module" src="/js/paginas/producto.js"></script>
+</body>
+</html>
