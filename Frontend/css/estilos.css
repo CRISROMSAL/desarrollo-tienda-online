@@ -1,0 +1,362 @@
+/* --- FUENTES IMPORTADAS --- */
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;600;700&family=Raleway:wght@300;400;600;700&display=swap');
+
+/* --- VARIABLES (ROOT) --- */
+:root {
+    --primary: #F57AAA;       /* Rosa Botones */
+    --primary-hover: #f06292;
+    --secondary: #C1272D;     /* Rojo Fuerte / Bordes */
+    --text-main: #636364;     /* Gris Texto */
+    --glass: rgba(255, 255, 255, 0.85);
+    --shadow: 0 8px 32px rgba(193, 39, 45, 0.15);
+}
+
+/* --- RESET BÁSICO --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    min-height: 100vh;
+}
+
+/* --- FONDO ANIMADO --- */
+body {
+    font-family: 'Raleway', sans-serif;
+    color: var(--text-main);
+    background: linear-gradient(-45deg, #f9dde9, #fce4ec, #f8bbd0, #f48fb1);
+    background-size: 400% 400%;
+    animation: gradientAnimation 15s ease infinite;
+    display: flex;
+    flex-direction: column;
+}
+
+@keyframes gradientAnimation {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+h1, h2, h3 {
+    font-family: 'Bodoni Moda', serif;
+    color: var(--secondary);
+}
+
+a { text-decoration: none; color: var(--secondary); transition: 0.3s; }
+a:hover { color: var(--primary); }
+
+/* =========================================
+   NAVBAR (Barra de Navegación)
+   ========================================= */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(193, 39, 45, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo-img { height: 50px; width: auto; animation: floatLogo 4s ease-in-out infinite; }
+
+.user-actions { 
+    display: flex; 
+    gap: 20px; 
+    align-items: center; 
+    font-weight: 600;
+}
+
+.btn-logout {
+    background-color: transparent;
+    border: 1px solid var(--secondary);
+    color: var(--secondary);
+    padding: 5px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: 'Raleway', sans-serif;
+    transition: 0.3s;
+}
+
+.btn-logout:hover {
+    background-color: var(--secondary);
+    color: white;
+}
+
+/* =========================================
+   LOGIN PAGE
+   ========================================= */
+.login-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.login-box {
+    background: var(--glass);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(193, 39, 45, 0.1);
+    padding: 50px;
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+    animation: slideIn 0.8s ease-out;
+}
+
+@keyframes floatLogo {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.login-logo-img {
+    max-width: 180px;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+    animation: floatLogo 3s ease-in-out infinite;
+}
+
+/* --- CLASES NUEVAS PARA LOS TEXTOS <P> --- */
+.subtitle {
+    margin-bottom: 25px;
+    font-size: 0.95rem;
+    color: var(--text-main);
+}
+
+.login-footer {
+    margin-top: 25px;
+    font-size: 0.85rem;
+    color: var(--text-main);
+}
+
+.login-footer a {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+/* Inputs del Login */
+input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ffcdd2;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: 'Raleway', sans-serif;
+    background: rgba(255,255,255,0.9);
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 8px rgba(245, 122, 170, 0.3);
+}
+
+/* =========================================
+   DASHBOARD & TIENDA
+   ========================================= */
+.container {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+    flex: 1;
+}
+
+.hero-section {
+    text-align: center;
+    padding: 40px;
+    background: var(--glass);
+    border-radius: 15px;
+    margin-bottom: 40px;
+    box-shadow: var(--shadow);
+}
+.hero-section h1 { font-size: 2.5rem; margin-bottom: 10px; }
+
+/* REJILLAS */
+.grid-products, .grid-categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+/* TARJETAS */
+.card-product, .card-category {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 1px solid rgba(255,255,255,0.5);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+}
+
+.card-product:hover, .card-category:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(193, 39, 45, 0.15);
+}
+
+.card-product img, .card-category img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+}
+
+.card-info { padding: 20px; text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
+
+.card-info h3 { font-size: 1.1rem; margin-bottom: 5px; color: #333; }
+.price { font-size: 1.2rem; font-weight: 700; color: var(--secondary); margin: 10px 0; display: block;}
+
+/* BOTONES GENERALES */
+.btn-primary, .btn-add-cart, .btn-checkout {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: background 0.3s;
+    font-family: 'Raleway', sans-serif;
+    margin-top: auto;
+}
+
+.btn-primary:hover, .btn-add-cart:hover, .btn-checkout:hover {
+    background-color: var(--primary-hover);
+    box-shadow: 0 5px 15px rgba(245, 122, 170, 0.4);
+}
+
+.btn-back { display: inline-block; margin-bottom: 20px; font-weight: bold; }
+
+/* =========================================
+   PÁGINA DETALLE DE PRODUCTO
+   ========================================= */
+.product-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    background: var(--glass);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+}
+
+.product-image-container img {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.badge-stock {
+    background: #2ecc71; color: white; padding: 5px 10px; border-radius: 4px; font-size: 0.8rem; font-weight: bold;
+}
+
+.variants { margin: 20px 0; }
+.variant-group { margin-bottom: 15px; }
+.variant-group label { display: block; margin-bottom: 5px; font-weight: 600; color: var(--secondary); }
+
+.btn-option {
+    border: 1px solid var(--primary);
+    background: white;
+    color: var(--text-main);
+    padding: 8px 15px;
+    margin-right: 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-option.selected {
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 3px 10px rgba(245, 122, 170, 0.4);
+}
+
+/* =========================================
+   PÁGINA CARRITO
+   ========================================= */
+.cart-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+}
+
+.cart-items {
+    background: var(--glass);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: var(--shadow);
+}
+
+.cart-item {
+    display: flex;
+    gap: 20px;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    align-items: center;
+}
+
+.cart-img { width: 70px; height: 90px; object-fit: cover; border-radius: 5px; }
+.cart-info { flex: 1; }
+
+.quantity-selector { display: flex; align-items: center; gap: 5px; }
+.quantity-selector input { width: 40px; text-align: center; margin: 0; padding: 5px; }
+.btn-qty { 
+    background: white; border: 1px solid var(--secondary); color: var(--secondary);
+    width: 25px; height: 25px; border-radius: 50%; cursor: pointer;
+}
+
+.btn-delete {
+    background: none; border: none; font-size: 1.2rem; cursor: pointer; opacity: 0.6; transition: 0.3s;
+}
+.btn-delete:hover { opacity: 1; transform: scale(1.1); }
+
+.cart-summary {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    height: fit-content;
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(193, 39, 45, 0.1);
+}
+
+.summary-row { display: flex; justify-content: space-between; margin-bottom: 15px; }
+.summary-row.total { font-size: 1.4rem; font-weight: bold; color: var(--secondary); border-top: 1px solid #eee; padding-top: 15px; }
+
+/* =========================================
+   FOOTER
+   ========================================= */
+.footer {
+    background-color: rgba(255,255,255,0.6);
+    color: var(--text-main);
+    text-align: center;
+    padding: 20px;
+    margin-top: auto;
+    font-size: 14px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .product-layout, .cart-layout { grid-template-columns: 1fr; }
+    .navbar { flex-direction: column; gap: 10px; }
+    .login-box { width: 90%; padding: 30px; }
+}

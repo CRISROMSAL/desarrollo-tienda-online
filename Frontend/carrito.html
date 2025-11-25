@@ -3,32 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Carrito | Tienda Moda</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <title>Carrito | Tienda Moda</title>
+    <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
 
     <nav class="navbar">
         <div class="logo">
             <a href="dashboard.html">
-                <img src="imagenes/logotipo.png" alt="Logotipo ReCordis" class="logo-img">
+                <img src="imagenes/logotipo.png" alt="Logo ReCordis" class="logo-img">
             </a>
         </div>
         <div class="user-actions">
-            <a href="dashboard.html" class="btn-back">← Seguir Comprando</a>
+            <a href="dashboard.html" class="btn-back">Seguir comprando</a>
         </div>
     </nav>
 
-    <main class="cart-container">
-        <h1>Tu Cesta de Compra</h1>
+    <main class="container">
+        <h2>Tu Cesta</h2>
 
         <div class="cart-layout">
             <section class="cart-items" id="contenedor-items">
-                <p>Cargando carrito...</p>
+                <p>Cargando...</p>
             </section>
 
             <aside class="cart-summary">
-                <h2>Resumen del Pedido</h2>
+                <h3 style="margin-bottom: 20px;">Resumen</h3>
                 
                 <div class="summary-row">
                     <span>Subtotal</span>
@@ -36,9 +36,9 @@
                 </div>
                 <div class="summary-row">
                     <span>Envío</span>
-                    <span>Gratis</span>
+                    <span style="color: green;">Gratis</span>
                 </div>
-                <hr>
+                
                 <div class="summary-row total">
                     <span>Total</span>
                     <span id="total-precio">0.00€</span>
@@ -47,11 +47,11 @@
                 <button id="btn-procesar-compra" class="btn-checkout">
                     FINALIZAR COMPRA
                 </button>
-                <p id="mensaje-error" class="error-msg" style="display:none; color:red; margin-top:10px;"></p>
+                <p id="mensaje-error" class="error" style="display:none;"></p>
             </aside>
         </div>
     </main>
 
-    <script type="module" src="/js/pages/carrito.js"></script>
+    <script type="module" src="/js/paginas/carrito.js"></script>
 </body>
 </html>

@@ -4,49 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard | Tienda Moda</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
 
     <nav class="navbar">
-        <div class="logo">ReCordis</div>
         <div class="logo">
             <a href="dashboard.html">
-                <img src="imagenes/Logotipo.png" alt="Logotipo Recordis" class="logo-img">
-    </a>
+                <img src="imagenes/logotipo.png" alt="Lootipo ReCordis" class="logo-img">
+            </a>
         </div>
         <div class="user-actions">
-            <span id="welcomeMsg">Hola, Usuario</span>
+            <span id="welcomeMsg" style="color: var(--secondary);">Hola</span>
             <a href="carrito.html" class="btn-cart">Carrito (<span id="cartCount">0</span>)</a>
-            <button id="logoutBtn" class="btn-logout">Cerrar Sesión</button>
+            <button id="logoutBtn" class="btn-logout">Salir</button>
         </div>
     </nav>
 
-    <header class="hero-section">
-        <h1>Nueva Colección Primavera-Verano</h1>
-        <p>Descubre las últimas tendencias</p>
-    </header>
-
     <main class="container">
-        <section class="categories-section">
+        <header class="hero-section">
+            <h1>Nueva Colección</h1>
+            <p>Tendencias Primavera - Verano</p>
+        </header>
+
+        <section>
             <h2>Categorías</h2>
             <div id="categoriesContainer" class="grid-categories">
                 </div>
         </section>
 
-        <section class="featured-section">
-            <h2>Productos Destacados</h2>
+        <section style="margin-top: 50px;">
+            <h2>Destacados</h2>
             <div id="featuredContainer" class="grid-products">
-                </div>
-        </section>
-        
-        <section class="recent-section" id="recentSection" style="display:none;">
-            <h2>Vistos Recientemente</h2>
-            <div id="recentContainer" class="grid-products">
                 </div>
         </section>
     </main>
 
-    <script type="module" src="js/paginas/dashboard.js"></script>
+    <script type="module" src="/js/paginas/dashboard.js"></script>
 </body>
 </html>

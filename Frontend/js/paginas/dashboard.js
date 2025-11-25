@@ -1,5 +1,5 @@
 // public/js/pages/dashboard.js
-import { Sesion } from '../classes/Sesion.js';
+import { Sesion } from '/js/clases/Sesion.js';
 // Ajusta estas rutas según funcionó antes (si usas rutas absolutas o relativas)
 import { Tienda } from '/js/clases/Tienda.js'; 
 import { Carrito } from '/js/clases/Carrito.js'; 
@@ -19,9 +19,18 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // A) Mostrar mensaje de bienvenida
     const usuario = sesion.getUsuario();
+    
+    // Verificamos en consola qué datos tenemos (para depurar)
+    console.log("Usuario logueado:", usuario); 
+
     if (usuario) {
         const welcomeElem = document.getElementById('welcomeMsg');
-        if (welcomeElem) welcomeElem.textContent = `Hola, ${usuario.nombre}`;
+        // Usamos usuario.nombre si existe, si no, usamos usuario.usuario
+        const nombreAmostrar = usuario.nombre || usuario.usuario; 
+        
+        if (welcomeElem) {
+            welcomeElem.textContent = `Hola, ${nombreAmostrar}`;
+        }
     }
 
     // B) ---> AQUÍ VA LA LÍNEA QUE PREGUNTABAS <---

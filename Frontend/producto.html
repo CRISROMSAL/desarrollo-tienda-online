@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalle del Producto | Tienda Moda</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <title>Producto | Tienda Moda</title>
+    <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
 
     <nav class="navbar">
         <div class="logo">
             <a href="dashboard.html">
-                <img src="imagenes/logotipo.png" alt="Logotipo ReCordis" class="logo-img">
+                <img src="imagenes/logotipo.png" alt="Logo ReCordis" class="logo-img">
             </a>
         </div>
         <div class="user-actions">
@@ -20,7 +20,7 @@
         </div>
     </nav>
 
-    <main class="container product-detail-page">
+    <main class="container">
         <div class="product-layout">
             
             <div class="product-image-container">
@@ -28,32 +28,29 @@
             </div>
 
             <div class="product-info-container">
-                <span class="badge-stock" id="stockBadge">En Stock</span>
-                <h1 id="tituloDetalle">Cargando...</h1>
-                <p id="precioDetalle" class="detail-price">0.00€</p>
-                <p id="descDetalle" class="detail-desc">...</p>
+                <span id="stockBadge" class="badge-stock">Stock</span>
+                
+                <h1 id="tituloDetalle" style="margin-top: 15px;">Nombre Producto</h1>
+                <p id="precioDetalle" class="price" style="font-size: 1.5rem;">0.00€</p>
+                <p id="descDetalle" style="margin-bottom: 20px; color: #666;">Descripción...</p>
 
-                <hr>
+                <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
 
                 <div class="variants">
                     <div class="variant-group">
                         <label>Color:</label>
-                        <div id="coloresContainer" class="options-container">
-                            </div>
+                        <div id="coloresContainer"></div>
                     </div>
 
                     <div class="variant-group">
                         <label>Talla:</label>
-                        <div id="tallasContainer" class="options-container">
-                            </div>
+                        <div id="tallasContainer"></div>
                     </div>
                 </div>
 
-                <div class="action-area">
-                    <button id="btnAgregar" class="btn-primary btn-large">
-                        AÑADIR A LA CESTA
-                    </button>
-                    <p id="msgFeedback" class="success-msg" style="display:none;"></p>
+                <div style="margin-top: 30px;">
+                    <button id="btnAgregar" class="btn-primary">AÑADIR A LA CESTA</button>
+                    <p id="msgFeedback" style="display:none; color: var(--secondary); margin-top: 10px; font-weight: bold; text-align: center;"></p>
                 </div>
             </div>
         </div>

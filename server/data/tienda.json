@@ -54,7 +54,7 @@
       "id_categoria": 1,
       "stock": 15,
       "tallas": ["S", "M", "L"],
-      "colores": ["Rosa", "Rojo"]
+      "colores": ["Rosa", "Blanco"]
     },
     {
       "id": 2,
@@ -66,7 +66,7 @@
       "id_categoria": 1,
       "stock": 8,
       "tallas": ["S", "M", "L"],
-      "colores": ["Blanco"]
+      "colores": ["Rosa", "Blanco"]
     },
     {
       "id": 3,
@@ -90,7 +90,7 @@
       "id_categoria": 1,
       "stock": 20,
       "tallas": ["S", "M", "L"],
-      "colores": ["Negro"]
+      "colores": ["Rosa", "Negro", "Blanco"]
     },
     {
       "id": 5,
@@ -102,7 +102,7 @@
       "id_categoria": 1,
       "stock": 25,
       "tallas": ["S", "M", "L"],
-      "colores": ["Rosa", "Rojo", "Amarillo"]
+      "colores": ["Rosa", "Negro", "Blanco"]
     },
     {
       "id": 6,
@@ -114,7 +114,7 @@
       "id_categoria": 1,
       "stock": 10,
       "tallas": ["S", "M", "L"],
-      "colores": ["Blanco"]
+      "colores": ["Rosa", "Negro", "Blanco"]
     },
     {
       "id": 7,
@@ -126,7 +126,7 @@
       "id_categoria": 2,
       "stock": 5,
       "tallas": ["S", "M", "L"],
-      "colores": ["Rojo", "Rosa"]
+      "colores": ["Rosa", "Celeste", "Blanco"]
     },
     {
       "id": 8,
@@ -138,7 +138,7 @@
       "id_categoria": 2,
       "stock": 30,
       "tallas": ["S", "M", "L"],
-      "colores": ["Blanco"]
+      "colores": ["Rosa", "Celeste", "Blanco"]
     },
     {
       "id": 9,
@@ -150,7 +150,7 @@
       "id_categoria": 2,
       "stock": 18,
       "tallas": ["S", "M", "L"],
-      "colores": ["Blanco", "Lima", "Azul"]
+      "colores": ["Rosa", "Celeste", "Blanco"]
     },
     {
       "id": 10,
@@ -162,7 +162,7 @@
       "id_categoria": 3,
       "stock": 18,
       "tallas": ["Único"],
-      "colores": ["Blanco", "Gris", "Negro"]
+      "colores": ["Celeste", "Rosa", "Negro", "Beige", "Gris"]
     },
         {
       "id": 11,
@@ -174,7 +174,7 @@
       "id_categoria": 3,
       "stock": 2,
       "tallas": ["Único"],
-      "colores": ["Blanco", "Gris", "Negro"]
+      "colores": ["Celeste", "Rosa", "Negro", "Beige", "Gris"]
     },
         {
       "id": 12,
@@ -186,7 +186,7 @@
       "id_categoria": 3,
       "stock": 3,
       "tallas": ["Único"],
-      "colores": ["Beige", "Marrón", "Negro"]
+      "colores": ["Celeste", "Rosa", "Negro", "Beige", "Gris"]
     },
     {
       "id": 13,
@@ -210,7 +210,7 @@
       "id_categoria": 3,
       "stock": 7,
       "tallas": ["Único"],
-      "colores": ["Celeste", "Lima"]
+      "colores": ["Celeste", "Rosa", "Negro", "Beige", "Gris"]
     },
     {
       "id": 15,
@@ -222,7 +222,7 @@
       "id_categoria": 4,
       "stock": 9,
       "tallas": ["Único"],
-      "colores": ["Rosa", "Rojo"]
+      "colores": ["Rosa"]
     },
     {
       "id": 16,
@@ -234,7 +234,7 @@
       "id_categoria": 4,
       "stock": 1,
       "tallas": ["Único"],
-      "colores": ["Dorado", "Rojo"]
+      "colores": ["Rojo"]
     },
     {
       "id": 17,
@@ -246,7 +246,7 @@
       "id_categoria": 4,
       "stock": 10,
       "tallas": ["Único"],
-      "colores": ["Beige", "Marrón", "Negro"]
+      "colores": ["Beige"]
     },
     {
       "id": 18,
@@ -258,7 +258,7 @@
       "id_categoria": 4,
       "stock": 12,
       "tallas": ["Único"],
-      "colores": ["Beige", "Rosa", "Rojo"]
+      "colores": ["Beige"]
     },
     {
       "id": 19,
@@ -270,7 +270,7 @@
       "id_categoria": 4,
       "stock": 1,
       "tallas": ["Único"],
-      "colores": ["Negro", "Dorado"]
+      "colores": ["Negro"]
     },
     {
       "id": 20,
@@ -294,7 +294,7 @@
       "id_categoria": 4,
       "stock": 1,
       "tallas": ["Único"],
-      "colores": ["Morado", "Verde"]
+      "colores": ["Verde"]
     },
     {
       "id": 22,
@@ -306,7 +306,7 @@
       "id_categoria": 5,
       "stock": 18,
       "tallas": ["Único"],
-      "colores": ["Rosa", "Naranja"]
+      "colores": ["Rosa"]
     },
     {
       "id": 23,
@@ -342,7 +342,7 @@
       "id_categoria": 6,
       "stock": 3,
       "tallas": ["0-3 meses", "3-6 meses", "6-12 meses"],
-      "colores": ["Rosa", "Blanco"]
+      "colores": ["Rosa palo"]
     },
     {
       "id": 26,
@@ -354,7 +354,7 @@
       "id_categoria": 6,
       "stock": 2,
       "tallas": ["0-3 meses", "3-6 meses", "6-12 meses"],
-      "colores": ["Rosa"]
+      "colores": ["Marrón"]
     },
     {
       "id": 27,
@@ -366,7 +366,7 @@
       "id_categoria": 6,
       "stock": 10,
       "tallas": ["Único"],
-      "colores": ["Rosa", "Beige"]
+      "colores": ["Rosa"]
     },
     {
       "id": 28,
@@ -378,7 +378,7 @@
       "id_categoria": 6,
       "stock": 2,
       "tallas": ["Único"],
-      "colores": ["Rosa", "Beige"]
+      "colores": ["Rosa"]
     }
 
   ]
