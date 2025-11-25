@@ -198,12 +198,65 @@ input:focus {
 }
 .hero-section h1 { font-size: 2.5rem; margin-bottom: 10px; }
 
-/* REJILLAS */
-.grid-products, .grid-categories {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+/* --- 1. ESTILO PARA CATEGORÍAS (El que te gustaba: 4 arriba, 3 abajo centrados) --- */
+.grid-categories {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Centrado */
     gap: 30px;
     margin-bottom: 50px;
+}
+
+.grid-categories .card-category {
+    width: 260px; /* Ancho fijo para que quepan 4 cómodamente */
+    /* ... resto de estilos de tarjeta ... */
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.5);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    display: flex; flex-direction: column; /* Para que la imagen y texto se ordenen */
+    overflow: hidden; /* Importante para que la imagen no se salga de las esquinas */
+}
+
+/* --- 2. ESTILO PARA PRODUCTOS (El nuevo: Estrictamente 3 por fila) --- */
+.grid-products {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+.grid-products .card-product {
+    /* Matemáticas: 33.3% es un tercio. Restamos 30px para los huecos */
+    width: calc(33.333% - 30px);
+    
+    /* Límites para que no se rompa en pantallas raras */
+    min-width: 260px;
+    max-width: 350px;
+    
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.5);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    display: flex; flex-direction: column;
+    overflow: hidden;
+}
+
+/* --- RESPONSIVE PARA AMBOS --- */
+@media (max-width: 900px) {
+    /* En tablets, los productos bajan a 2 por fila */
+    .grid-products .card-product {
+        width: calc(50% - 30px);
+    }
+}
+
+@media (max-width: 600px) {
+    /* En móviles, todo al 100% */
+    .grid-products .card-product, 
+    .grid-categories .card-category {
+        width: 100%;
+    }
 }
 
 /* TARJETAS */
@@ -523,3 +576,34 @@ input:focus {
     font-size: 1.1rem;
     letter-spacing: 1px;
 }
+
+/* --- CORRECCIÓN FINAL: RESTAURAR CARRUSEL DESTACADOS --- */
+/* (Esto sobreescribe la regla de "3 por fila" solo para esta sección) */
+
+#featuredContainer {
+    display: flex !important;       /* Forzamos que sea flexible */
+    flex-wrap: nowrap !important;   /* ¡IMPORTANTE! Prohibido saltar de línea */
+    overflow-x: auto !important;    /* Scroll horizontal activado */
+    justify-content: flex-start !important; /* Alineado a la izquierda para empezar */
+    
+    scroll-snap-type: x mandatory;  /* Efecto imán */
+    gap: 25px;
+    padding-bottom: 20px;           /* Espacio para la barra de scroll */
+}
+
+/* Ajustamos las tarjetas DENTRO del carrusel para que no sean flexibles */
+#featuredContainer .card-product {
+    /* Ancho fijo y rígido para el slider */
+    min-width: 280px !important;
+    width: 280px !important;
+    max-width: 280px !important;
+    
+    flex-shrink: 0 !important;      /* No te encojas nunca */
+    scroll-snap-align: start;       /* Alineación imán */
+    margin-bottom: 5px;
+}
+
+/* Personalización de la barra de scroll (opcional, para que quede rosa) */
+#featuredContainer::-webkit-scrollbar { height: 8px; }
+#featuredContainer::-webkit-scrollbar-track { background: rgba(255,255,255,0.5); border-radius: 10px; }
+#featuredContainer::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
