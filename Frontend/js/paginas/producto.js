@@ -80,6 +80,9 @@ function renderizarDetalle() {
 
     // Configurar Botón Añadir
     document.getElementById('btnAgregar').addEventListener('click', agregarAlCarrito);
+
+    // Guardar en historial de vistos
+    sesion.registrarProductoVisto(productoActual.id);
 }
 
 function agregarAlCarrito() {

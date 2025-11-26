@@ -29,6 +29,7 @@ body {
     color: var(--text-main);
     background: linear-gradient(-45deg, #f9dde9, #fce4ec, #f8bbd0, #f48fb1);
     background-size: 400% 400%;
+    background-attachment: fixed;
     animation: gradientAnimation 15s ease infinite;
     display: flex;
     flex-direction: column;
@@ -411,19 +412,23 @@ input:focus {
    FOOTER (Actualizado y Estilizado)
    ========================================= */
 .footer {
-    /* Fondo Rosa Claro (Tu color primario al 15% de opacidad) */
-    background: rgba(245, 122, 170, 0.15); 
+   /* ⚠️ CAMBIO CLAVE: Color sólido (Hexadecimal) en vez de rgba */
+    background: #fce4ec; 
     
-    /* Efecto cristal sutil */
-    backdrop-filter: blur(5px);
+    /* Quitamos el blur porque ya no es transparente */
+    /* backdrop-filter: blur(5px); <-- Bórralo o coméntalo */
+    
     border-top: 1px solid rgba(245, 122, 170, 0.3);
-    
     color: var(--text-main);
     text-align: center;
     padding: 40px 20px;
-    margin-top: auto; /* Empuja el footer al final de la pantalla */
+    margin-top: auto;
     width: 100%;
     font-family: 'Raleway', sans-serif;
+    
+    /* Para que tape bien lo de atrás */
+    position: relative; 
+    z-index: 10;
 }
 
 .footer p {
@@ -659,4 +664,39 @@ input:focus {
     visibility: visible;
     opacity: 1;
     bottom: 50px; /* Sube un poquito al aparecer */
+}
+
+/* --- AJUSTE: VISTOS RECIENTEMENTE (4 POR FILA) --- */
+/* Sobreescribimos la regla general solo para esta sección */
+
+#recentContainer {
+    gap: 20px; /* Un poco menos de espacio para que quepan bien */
+}
+
+#recentContainer .card-product {
+    /* MATEMÁTICAS: 100% / 4 = 25%. Restamos el hueco. */
+    width: calc(25% - 20px) !important; 
+    
+    /* Reducimos el ancho mínimo para que no se bajen a otra línea en portátiles */
+    min-width: 200px !important; 
+    
+    /* Ajustamos un poco la imagen para que no quede muy alta */
+    height: auto;
+}
+
+#recentContainer .card-product img {
+    height: 250px; /* Un poco más bajitas que las normales */
+}
+
+/* RESPONSIVE: En móviles seguimos mostrando 1 o 2 */
+@media (max-width: 900px) {
+    #recentContainer .card-product {
+        width: calc(50% - 20px) !important; /* En tablets 2 y 2 */
+    }
+}
+
+@media (max-width: 600px) {
+    #recentContainer .card-product {
+        width: 100% !important; /* En móviles 1 gigante */
+    }
 }

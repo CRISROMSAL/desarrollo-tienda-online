@@ -54,6 +54,35 @@ export class Sesion {
         return localStorage.getItem(this.tokenKey);
     }
 
+    // --- NUEVOS MÉTODOS PARA "VISTOS RECIENTEMENTE" ---
+
+    registrarProductoVisto(idProducto) {
+        // 1. Recuperamos la lista actual (o array vacío)
+        let vistos = JSON.parse(localStorage.getItem(this.vistosKey)) || [];
+        
+        // 2. Convertimos a entero para asegurar
+        const id = parseInt(idProducto);
+
+        // 3. Eliminamos el ID si ya existía (para ponerlo luego al principio)
+        vistos = vistos.filter(v => v !== id);
+
+        // 4. Añadimos el nuevo al principio
+        vistos.unshift(id);
+
+        // 5. Limitamos a los últimos 4 productos
+        if (vistos.length > 4) {
+            vistos = vistos.slice(0, 4);
+        }
+
+        // 6. Guardamos en LocalStorage
+        localStorage.setItem(this.vistosKey, JSON.stringify(vistos));
+    }
+
+    getProductosVistos() {
+        return JSON.parse(localStorage.getItem(this.vistosKey)) || [];
+    }
+
+
     logout() {
         localStorage.removeItem(this.tokenKey);
         localStorage.removeItem(this.userKey);

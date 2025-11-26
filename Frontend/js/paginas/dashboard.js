@@ -44,6 +44,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const destacados = tienda.getProductosDestacados();
     tienda.renderizarProductos('featuredContainer', destacados);
 
+    //RENDERIZAR VISTOS RECIENTEMENTE
+    const idsVistos = sesion.getProductosVistos();
+    
+    if (idsVistos.length > 0) {
+        // Convertimos la lista de IDs (ej: [1, 3]) en lista de Objetos Producto reales
+        const productosVistos = idsVistos.map(id => tienda.getProductoPorId(id)).filter(p => p !== null);
+        
+        // Reutilizamos la función de la Tienda para pintar las tarjetas (¡Magia!)
+        tienda.renderizarProductos('recentContainer', productosVistos);
+    }
+
     // D) Configurar botón de Cerrar Sesión
     const btnLogout = document.getElementById('logoutBtn');
     if (btnLogout) {
