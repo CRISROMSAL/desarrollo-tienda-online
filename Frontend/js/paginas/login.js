@@ -1,36 +1,28 @@
-// public/js/paginas/login.js
 import { Sesion } from '/js/clases/Sesion.js';
 
-// Instanciamos la clase (Programación Orientada a Objetos)
 const sesion = new Sesion();
 
-// Verificamos si ya estaba logueado para redirigir directamente
-if (sesion.estaAutenticado()) {
-    window.location.href = 'dashboard.html';
-}
+document.getElementById('loginForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-// Esperamos a que el HTML cargue completamente
-document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('loginForm');
+    const user = document.getElementById('username').value;
+    const pass = document.getElementById('password').value;
+    const feedbackBox = document.getElementById('loginFeedback'); // El div nuevo
 
-    if (form) {
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault(); // Evita que la página se recargue sola
+    // Limpiamos mensajes anteriores
+    feedbackBox.style.display = 'none';
+    feedbackBox.className = 'feedback-msg';
 
-            // Obtenemos los valores de los inputs
-            // ¡ASEGÚRATE QUE EN TU HTML LOS INPUTS TENGAN ESTOS IDs!
-            const usuarioInput = document.getElementById('username').value;
-            const passwordInput = document.getElementById('password').value;
+    // Llamamos a la sesión (ahora nos devuelve un objeto, no un alert)
+    const resultado = await sesion.login(user, pass);
 
-            // Llamamos a la clase Sesion
-            const exito = await sesion.login(usuarioInput, passwordInput);
-
-            if (exito) {
-                // Si todo fue bien, redirigimos al Dashboard
-                window.location.href = 'dashboard.html';
-            }
-        });
+    if (resultado.success) {
+        // Éxito: Redirigimos
+        window.location.href = 'dashboard.html';
     } else {
-        console.error('No se encontró el formulario con id="loginForm"');
+        // Error: Mostramos el mensaje en línea
+        feedbackBox.textContent = resultado.mensaje; // "Credenciales incorrectas"
+        feedbackBox.classList.add('error'); // Pone estilo rojo
+        feedbackBox.style.display = 'block'; // Lo hace visible
     }
 });

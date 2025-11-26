@@ -53,24 +53,34 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // E) ESCUCHADOR PARA BOTONES "AÑADIR AL CARRITO"
-    // Usamos delegación de eventos (document.body) porque los botones se crearon dinámicamente
     document.body.addEventListener('click', (e) => {
-        // Verificamos si lo que se pulsó tiene la clase 'btn-add-cart'
-        if (e.target.classList.contains('btn-add-cart')) {
-            const idProducto = e.target.dataset.id;
-            
-            // Buscamos los datos completos del producto en la Tienda
+        // Buscamos si el clic fue en el botón o en algo dentro del botón (icono)
+        const btn = e.target.closest('.btn-add-cart');
+
+        if (btn) {
+            const idProducto = btn.dataset.id;
             const productoInfo = tienda.getProductoPorId(idProducto);
 
             if (productoInfo) {
-                // Lo añadimos al carrito
                 carrito.agregarProducto(productoInfo);
                 
-                // Feedback visual para el usuario
-                alert(`¡${productoInfo.nombre} añadido al carrito!`);
-            } else {
-                console.error("Error: Producto no encontrado en memoria");
+                // --- CAMBIO: USAMOS EL TOAST EN VEZ DE ALERT ---
+                mostrarToast(`¡${productoInfo.nombre} añadido!`);
             }
         }
     });
-});
+
+    // Función para mostrar el Toast
+    function mostrarToast(mensaje) {
+        const toast = document.getElementById("toast-notification");
+        if (toast) {
+            toast.textContent = mensaje;
+            toast.className = "toast show"; // Mostrar
+            
+            // Ocultar a los 3 segundos
+            setTimeout(() => { 
+                toast.className = toast.className.replace("show", ""); 
+            }, 3000);
+        }
+    }
+    });

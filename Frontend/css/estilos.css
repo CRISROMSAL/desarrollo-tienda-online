@@ -607,3 +607,56 @@ input:focus {
 #featuredContainer::-webkit-scrollbar { height: 8px; }
 #featuredContainer::-webkit-scrollbar-track { background: rgba(255,255,255,0.5); border-radius: 10px; }
 #featuredContainer::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+
+/* --- INLINE VALIDATION (Mensajes en pantalla) --- */
+
+/* Estilo base para todos los mensajes */
+.feedback-msg {
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    margin-top: 15px;
+    text-align: center;
+    display: none; /* Oculto por defecto */
+    animation: slideIn 0.3s ease-out;
+    font-weight: 600;
+}
+
+/* Mensaje de ERROR (Rojo suave) */
+.feedback-msg.error {
+    background-color: rgba(193, 39, 45, 0.1);
+    color: var(--secondary);
+    border: 1px solid rgba(193, 39, 45, 0.3);
+}
+
+/* Mensaje de ÉXITO (Verde suave) */
+.feedback-msg.success {
+    background-color: rgba(46, 204, 113, 0.15);
+    color: #27ae60;
+    border: 1px solid rgba(46, 204, 113, 0.3);
+}
+
+.toast {
+    visibility: hidden; /* Oculto por defecto */
+    min-width: 250px;
+    background-color: #333; /* Fondo oscuro */
+    color: #fff;
+    text-align: center;
+    border-radius: 50px; /* Redondito */
+    padding: 16px;
+    position: fixed;
+    z-index: 2000;
+    left: 50%;
+    bottom: 30px;
+    transform: translateX(-50%); /* Centrado abajo */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    font-size: 0.95rem;
+    opacity: 0;
+    transition: opacity 0.3s, bottom 0.3s;
+}
+
+.toast.show {
+    visibility: visible;
+    opacity: 1;
+    bottom: 50px; /* Sube un poquito al aparecer */
+}

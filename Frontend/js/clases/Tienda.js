@@ -1,12 +1,9 @@
 export class Tienda {
     constructor() {
-        this.storeKey = 'tienda_datos'; // La misma clave que usamos en Sesion.js
+        this.storeKey = 'tienda_datos'; 
         this.datos = this.cargarDatos();
     }
 
-    /**
-     * Recupera el JSON gigante del LocalStorage
-     */
     cargarDatos() {
         const datosGuardados = localStorage.getItem(this.storeKey);
         if (!datosGuardados) {
@@ -16,43 +13,28 @@ export class Tienda {
         return JSON.parse(datosGuardados);
     }
 
-    /**
-     * Devuelve todas las categorías
-     */
     getCategorias() {
         return this.datos ? this.datos.categorias : [];
     }
 
-    /**
-     * Devuelve SOLO los productos marcados como 'destacado: true'
-     */
     getProductosDestacados() {
         if (!this.datos) return [];
         return this.datos.productos.filter(prod => prod.destacado === true);
     }
 
-    /**
-     * Devuelve todos los productos de una categoría específica
-     */
     getProductosPorCategoria(idCategoria) {
         if (!this.datos) return [];
-        // Convertimos a int por si acaso vienen como string
+        // Convertimos a int porque el ID viene como número
         return this.datos.productos.filter(prod => prod.id_categoria === parseInt(idCategoria));
     }
 
-    /**
-     * Busca un producto por su ID
-     */
     getProductoPorId(id) {
         if (!this.datos) return null;
         return this.datos.productos.find(prod => prod.id === parseInt(id));
     }
 
-    // --- MÉTODOS DE RENDERIZADO (Generan HTML) ---
+    // --- RENDERIZADO ---
 
-    /**
-     * Pinta las categorías en el Dashboard
-     */
     renderizarCategorias(contenedorId) {
         const contenedor = document.getElementById(contenedorId);
         const categorias = this.getCategorias();
@@ -60,17 +42,13 @@ export class Tienda {
         if (!contenedor) return;
 
         contenedor.innerHTML = categorias.map(cat => `
-            <div class="card-category" onclick="window.location.href='categorias.html?id=${cat.id}'">
+            <div class="card-category" onclick="window.location.href='categorias.html?cat=${cat.id}'">
                 <img src="${cat.imagen}" alt="${cat.nombre}">
                 <h3>${cat.nombre}</h3>
             </div>
         `).join('');
     }
 
-    /**
-     * Pinta los productos (FALTABA ESTA FUNCIÓN)
-     * Se usa tanto en Dashboard como en Categorías
-     */
     renderizarProductos(contenedorId, listaProductos) {
         const contenedor = document.getElementById(contenedorId);
         

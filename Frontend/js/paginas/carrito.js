@@ -1,11 +1,9 @@
 import { Sesion } from '/js/clases/Sesion.js';
 import { Carrito } from '/js/clases/Carrito.js';
 
-// Instanciamos
 const sesion = new Sesion();
 const carrito = new Carrito();
 
-// 1. SEGURIDAD: Si no estás logueado, fuera
 if (!sesion.estaAutenticado()) {
     window.location.href = 'login.html';
 }
@@ -15,35 +13,37 @@ document.addEventListener('DOMContentLoaded', () => {
     configurarBotonCompra();
 });
 
-/**
- * Dibuja los productos en el HTML basándose en lo que hay en LocalStorage
- */
 function renderizarCarrito() {
-    const items = carrito.items; // Accedemos al array de productos
+    const items = carrito.getItems();
     const contenedor = document.getElementById('contenedor-items');
     const precioTotalElem = document.getElementById('total-precio');
     const subtotalElem = document.getElementById('subtotal-precio');
+    const btnCompra = document.getElementById('btn-procesar-compra');
 
-    // 1. Caso Carrito Vacío
     if (items.length === 0) {
         contenedor.innerHTML = `
             <div class="cart-empty">
-                <p>Tu carrito está vacío.</p>
-                <a href="dashboard.html" class="btn-primary">Ir a la Tienda</a>
+                <p>Tu cesta está vacía.</p>
+                <a href="dashboard.html" class="btn-primary" style="width:auto; padding: 10px 30px;">Ir a la Tienda</a>
             </div>
         `;
-        precioTotalElem.textContent = '0.00€';
-        subtotalElem.textContent = '0.00€';
-        // Desactivar botón de compra
-        const btnCompra = document.getElementById('btn-procesar-compra');
+        if(precioTotalElem) precioTotalElem.textContent = '0.00€';
+        if(subtotalElem) subtotalElem.textContent = '0.00€';
+        
         if(btnCompra) {
             btnCompra.disabled = true;
             btnCompra.style.opacity = '0.5';
+            btnCompra.style.cursor = 'not-allowed';
         }
         return;
     }
 
-    // 2. Generar HTML de cada producto
+    if(btnCompra) {
+        btnCompra.disabled = false;
+        btnCompra.style.opacity = '1';
+        btnCompra.style.cursor = 'pointer';
+    }
+
     contenedor.innerHTML = items.map(item => `
         <article class="cart-item">
             <img src="${item.imagen}" alt="${item.nombre}" class="cart-img">
@@ -53,12 +53,10 @@ function renderizarCarrito() {
                 <span class="price">${parseFloat(item.precio).toFixed(2)}€</span>
             </div>
 
-            <div class="cart-controls">
-                <div class="quantity-selector">
-                    <button class="btn-qty" data-accion="restar" data-id="${item.id}">-</button>
-                    <input type="text" value="${item.cantidad}" readonly>
-                    <button class="btn-qty" data-accion="sumar" data-id="${item.id}">+</button>
-                </div>
+            <div class="quantity-selector">
+                <button class="btn-qty" data-accion="restar" data-id="${item.id}">-</button>
+                <input type="text" value="${item.cantidad}" readonly>
+                <button class="btn-qty" data-accion="sumar" data-id="${item.id}">+</button>
             </div>
 
             <div class="cart-subtotal">
@@ -71,102 +69,87 @@ function renderizarCarrito() {
         </article>
     `).join('');
 
-    // 3. Actualizar Totales
-    const total = carrito.obtenerTotal().toFixed(2);
-    precioTotalElem.textContent = `${total}€`;
-    subtotalElem.textContent = `${total}€`;
+    const total = carrito.calcularTotal().toFixed(2);
+    if(precioTotalElem) precioTotalElem.textContent = `${total}€`;
+    if(subtotalElem) subtotalElem.textContent = `${total}€`;
 
-    // 4. Reactivar listeners para los botones que acabamos de crear
-    asignarEventos();
+    asignarEventosItems();
 }
 
-/**
- * Asigna funcionalidad a los botones de +, - y Eliminar
- */
-function asignarEventos() {
-    // Usamos delegación o querySelectorAll. Aquí haremos querySelectorAll
-    document.querySelectorAll('.btn-qty, .btn-delete').forEach(btn => {
+function asignarEventosItems() {
+    const botones = document.querySelectorAll('.btn-qty, .btn-delete');
+    // Usamos el div de feedback para avisar de que hemos borrado
+    const feedback = document.getElementById('checkoutFeedback'); 
+    
+    botones.forEach(btn => {
         btn.addEventListener('click', (e) => {
-            const id = parseInt(e.target.dataset.id);
-            const accion = e.target.dataset.accion;
+            const target = e.target.closest('button'); 
+            // OJO: El ID ahora puede ser string (por las variantes), así que quitamos parseInt si es necesario,
+            // pero si tus IDs son números puros, déjalo. Si usas variantes (1-rojo-M), usa string.
+            // Para asegurar, lo tratamos como string si viene con guiones, o int si no.
+            let id = target.dataset.id;
+            // Si es solo número, lo convertimos
+            if(!isNaN(id)) id = parseInt(id);
 
-            // Buscamos el item actual
-            const itemActual = carrito.items.find(i => i.id === id);
+            const accion = target.dataset.accion;
+            const item = carrito.getItems().find(i => i.id == id);
 
             if (accion === 'sumar') {
-                carrito.cambiarCantidad(id, itemActual.cantidad + 1);
+                carrito.cambiarCantidad(id, item.cantidad + 1);
             } else if (accion === 'restar') {
-                carrito.cambiarCantidad(id, itemActual.cantidad - 1);
+                carrito.cambiarCantidad(id, item.cantidad - 1);
             } else if (accion === 'eliminar') {
-                if(confirm('¿Seguro que quieres eliminar este producto?')) {
-                    carrito.eliminarProducto(id);
+                // --- CAMBIO: SIN CONFIRM, BORRADO DIRECTO ---
+                carrito.eliminarProducto(id);
+                
+                // Mostramos mensaje rojo temporal
+                if(feedback) {
+                    feedback.textContent = "🗑️ Producto eliminado";
+                    feedback.className = 'feedback-msg error';
+                    feedback.style.display = 'block';
+                    setTimeout(() => { feedback.style.display = 'none'; }, 2000);
                 }
             }
 
-            // Volver a pintar todo para ver los cambios
             renderizarCarrito();
+            carrito.actualizarContadorUI();
         });
     });
 }
 
-/**
- * Maneja el envío del pedido al servidor
- */
 function configurarBotonCompra() {
-    const btn = document.getElementById('btn-procesar-compra');
-    const msgError = document.getElementById('mensaje-error');
+    const btnComprar = document.getElementById('btn-procesar-compra');
+    const feedback = document.getElementById('checkoutFeedback'); 
 
-    if (!btn) return;
+    if (!btnComprar) return;
 
-    btn.addEventListener('click', async () => {
-        if (carrito.items.length === 0) return;
+    btnComprar.addEventListener('click', async () => {
+        btnComprar.disabled = true;
+        const textoOriginal = btnComprar.textContent;
+        btnComprar.textContent = "Procesando...";
+        
+        if(feedback) feedback.style.display = 'none';
 
-        // Efecto visual de carga
-        btn.textContent = 'Procesando...';
-        btn.disabled = true;
-        msgError.style.display = 'none';
+        const resultado = await carrito.procesarCompra();
 
-        const usuario = sesion.getUsuario();
-        const token = sesion.getToken();
-
-        try {
-            // PETICIÓN AL SERVIDOR (Requisito funcional)
-            // Enviamos el carrito para que el backend valide que los precios son reales
-            const response = await fetch('/api/carrito', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': token // Token de seguridad
-                },
-                body: JSON.stringify({
-                    usuario: usuario,
-                    carrito: carrito.items
-                })
-            });
-
-            const data = await response.json();
-
-            if (!data.error) {
-                // ÉXITO
-                alert(`✅ ${data.mensaje}\nPedido ID: ${data.pedido.id}`);
-                
-                // Vaciar carrito y redirigir
-                carrito.vaciar();
-                window.location.href = 'dashboard.html';
-            } else {
-                // ERROR (Posible manipulación de precios)
-                msgError.textContent = `Error: ${data.mensaje}`;
-                msgError.style.display = 'block';
-                btn.textContent = 'FINALIZAR COMPRA';
-                btn.disabled = false;
+        if (resultado.status) {
+            if(feedback) {
+                feedback.textContent = "✅ " + resultado.mensaje;
+                feedback.className = 'feedback-msg success'; 
+                feedback.style.display = 'block';
             }
-
-        } catch (error) {
-            console.error(error);
-            msgError.textContent = 'Error de conexión con el servidor.';
-            msgError.style.display = 'block';
-            btn.textContent = 'FINALIZAR COMPRA';
-            btn.disabled = false;
+            renderizarCarrito();
+            setTimeout(() => {
+                window.location.href = 'dashboard.html';
+            }, 2000);
+        } else {
+            if(feedback) {
+                feedback.textContent = "❌ " + resultado.mensaje;
+                feedback.className = 'feedback-msg error'; 
+                feedback.style.display = 'block';
+            }
+            btnComprar.disabled = false;
+            btnComprar.textContent = textoOriginal;
         }
     });
 }

@@ -7,27 +7,28 @@ export class Sesion {
     }
 
     async login(usuario, password) {
-        try {
-            const response = await fetch('/api/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ usuario, password })
-            });
+    try {
+        const response = await fetch('/api/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ usuario, password })
+        });
 
-            const data = await response.json();
+        const data = await response.json();
 
-            if (!data.error) {
-                this.guardarDatosSesion(data);
-                return true;
-            } else {
-                alert(data.mensaje);
-                return false;
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            return false;
+        if (!data.error) {
+            this.guardarDatosSesion(data);
+            // Devuelve éxito
+            return { success: true }; 
+        } else {
+            // Devuelve fallo y el mensaje del servidor
+            return { success: false, mensaje: data.mensaje }; 
         }
+    } catch (error) {
+        console.error('Error:', error);
+        return { success: false, mensaje: "Error de conexión con el servidor" };
     }
+}
 
     guardarDatosSesion(data) {
         localStorage.setItem(this.tokenKey, data.token);

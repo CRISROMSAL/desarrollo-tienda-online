@@ -2,68 +2,84 @@ import { Sesion } from '/js/clases/Sesion.js';
 import { Tienda } from '/js/clases/Tienda.js';
 import { Carrito } from '/js/clases/Carrito.js';
 
-// Instancias
 const sesion = new Sesion();
 const tienda = new Tienda();
 const carrito = new Carrito();
 
-// 1. Seguridad
+// Seguridad
 if (!sesion.estaAutenticado()) {
     window.location.href = 'login.html';
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    // Actualizar contador del carrito
+document.addEventListener('DOMContentLoaded', async () => {
+    
+    // 1. Contador del carrito
     carrito.actualizarContadorUI();
 
-    // 2. OBTENER EL ID DE LA URL
-    // Esto lee lo que hay después del signo ? (ej: categorias.html?id=1)
-    const urlParams = new URLSearchParams(window.location.search);
-    const categoriaId = urlParams.get('id');
+    // 2. Cargar datos de la tienda (Espera a tenerlos)
+    // No hace falta await tienda.cargarDatos() si el constructor ya lo hace, 
+    // pero aseguramos que tienda.datos no sea null.
+    if (!tienda.datos) {
+        console.error("Error: No hay datos cargados en la tienda");
+        return;
+    }
 
-    if (!categoriaId) {
-        // Si alguien entra sin ID, lo mandamos al dashboard
+    // 3. Leer ID de la categoría (ej: ?cat=1)
+    const params = new URLSearchParams(window.location.search);
+    const idCategoria = params.get('cat');
+
+    if (!idCategoria) {
         window.location.href = 'dashboard.html';
         return;
     }
 
-    cargarCategoria(categoriaId);
-});
-
-function cargarCategoria(id) {
-    // A) Buscar información de la categoría
-    const todasLasCategorias = tienda.getCategorias();
-    const infoCategoria = todasLasCategorias.find(c => c.id === parseInt(id));
-
+    // 4. Buscar el NOMBRE de la categoría usando el ID (Para el título)
+    // El ID viene como string "1", lo comparamos flexiblemente (==) con el número
+    const infoCategoria = tienda.getCategorias().find(c => c.id == idCategoria);
+    
+    let nombreCategoria = "Categoría";
     if (infoCategoria) {
-        // Poner Título y Descripción en el HTML
-        document.getElementById('categoryTitle').textContent = infoCategoria.nombre;
-        document.getElementById('categoryDesc').textContent = infoCategoria.descripcion;
-        document.title = `${infoCategoria.nombre} | Tienda Moda`;
-    } else {
-        document.getElementById('categoryTitle').textContent = "Categoría no encontrada";
+        nombreCategoria = infoCategoria.nombre; // Ej: "Tops"
     }
 
-    // B) Buscar productos de esa categoría
-    const productosFiltrados = tienda.getProductosPorCategoria(id);
+    // 5. Pintar Títulos
+    const titulo = document.getElementById('categoryTitle');
+    const desc = document.getElementById('categoryDesc');
     
-    // C) Renderizarlos
+    if(titulo) titulo.textContent = nombreCategoria.toUpperCase();
+    if(desc) desc.textContent = `Explora nuestra selección de ${nombreCategoria}`;
+
+    // 6. Filtrar y Pintar Productos (Usando el ID)
+    const productosFiltrados = tienda.getProductosPorCategoria(idCategoria);
     tienda.renderizarProductos('productsContainer', productosFiltrados);
 
-    // D) Activar botones de compra (Delegación de eventos en el body)
-    activarBotonesCompra();
-}
+    // 7. Configurar botones
+    configurarBotonesAdd();
+});
 
-function activarBotonesCompra() {
+function configurarBotonesAdd() {
     document.body.addEventListener('click', (e) => {
-        if (e.target.classList.contains('btn-add-cart')) {
-            const idProducto = e.target.dataset.id;
-            const productoInfo = tienda.getProductoPorId(idProducto);
+        const btn = e.target.closest('.btn-add-cart');
 
-            if (productoInfo) {
-                carrito.agregarProducto(productoInfo);
-                alert(`¡${productoInfo.nombre} añadido al carrito!`);
+        if (btn) {
+            const id = btn.dataset.id;
+            const producto = tienda.getProductoPorId(id);
+
+            if (producto) {
+                carrito.agregarProducto(producto);
+                mostrarToast(`¡${producto.nombre} añadido!`);
             }
         }
     });
+}
+
+function mostrarToast(mensaje) {
+    const toast = document.getElementById("toast-notification");
+    if (toast) {
+        toast.textContent = mensaje;
+        toast.className = "toast show";
+        setTimeout(() => { 
+            toast.className = toast.className.replace("show", ""); 
+        }, 3000);
+    }
 }
