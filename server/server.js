@@ -19,7 +19,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, '../Frontend')));
 
 // ============================================
-// 🔐 FUNCIONES JWT MANUALES (Requisito Profesor)
+//  FUNCIONES JWT MANUALES (Requisito Profesor)
 // ============================================
 
 function base64UrlEncode(str) {
@@ -110,7 +110,7 @@ function middlewareAuth(req, res, next) {
 }
 
 // ============================================
-// 📂 CARGAR DATOS JSON
+//  CARGAR DATOS JSON
 // ============================================
 let usuarios = [];
 let tienda = {};
@@ -124,9 +124,9 @@ function cargarDatos() {
     usuarios = JSON.parse(fs.readFileSync(usuariosPath, 'utf-8')).usuarios;
     tienda = JSON.parse(fs.readFileSync(tiendaPath, 'utf-8'));
     
-    console.log('✅ Datos cargados correctamente en memoria.');
+    console.log(' Datos cargados correctamente en memoria.');
   } catch (error) {
-    console.error('❌ Error cargando datos:', error.message);
+    console.error(' Error cargando datos:', error.message);
     process.exit(1);
   }
 }
@@ -134,7 +134,7 @@ function cargarDatos() {
 cargarDatos();
 
 // ============================================
-// 🚀 ENDPOINTS API
+//  ENDPOINTS API
 // ============================================
 
 /**
