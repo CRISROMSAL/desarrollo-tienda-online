@@ -1,61 +1,42 @@
-// public/js/pages/dashboard.js
 import { Sesion } from '/js/clases/Sesion.js';
-// Ajusta estas rutas según funcionó antes (si usas rutas absolutas o relativas)
-import { Tienda } from '/js/clases/Tienda.js'; 
-import { Carrito } from '/js/clases/Carrito.js'; 
+import { Tienda } from '/js/clases/Tienda.js';
+import { Carrito } from '/js/clases/Carrito.js';
 
-// 1. Instanciamos todas las clases necesarias
 const sesion = new Sesion();
 const tienda = new Tienda();
 const carrito = new Carrito(); 
 
-// 2. PROTECCIÓN DE RUTA (Si no hay token, fuera)
 if (!sesion.estaAutenticado()) {
     window.location.href = 'login.html';
 }
 
-// 3. LÓGICA PRINCIPAL (Cuando el HTML ha cargado)
 document.addEventListener('DOMContentLoaded', () => {
     
-    // A) Mostrar mensaje de bienvenida
+    // A) Bienvenida
     const usuario = sesion.getUsuario();
-    
-    // Verificamos en consola qué datos tenemos (para depurar)
-    console.log("Usuario logueado:", usuario); 
-
     if (usuario) {
         const welcomeElem = document.getElementById('welcomeMsg');
-        // Usamos usuario.nombre si existe, si no, usamos usuario.usuario
         const nombreAmostrar = usuario.nombre || usuario.usuario; 
-        
-        if (welcomeElem) {
-            welcomeElem.textContent = `Hola, ${nombreAmostrar}`;
-        }
+        if (welcomeElem) welcomeElem.textContent = `Hola, ${nombreAmostrar}`;
     }
 
-    // B) ---> AQUÍ VA LA LÍNEA QUE PREGUNTABAS <---
-    // Actualiza el número del carrito (0, 1, 2...) nada más entrar
+    // B) Contador carrito
     carrito.actualizarContadorUI();
 
-    // C) Renderizar la tienda (Categorías y Destacados)
+    // C) Renderizar Tienda
     tienda.renderizarCategorias('categoriesContainer');
     
-    // Obtenemos destacados y los pintamos
     const destacados = tienda.getProductosDestacados();
     tienda.renderizarProductos('featuredContainer', destacados);
 
-    //RENDERIZAR VISTOS RECIENTEMENTE
+    // D) Renderizar Vistos Recientemente
     const idsVistos = sesion.getProductosVistos();
-    
     if (idsVistos.length > 0) {
-        // Convertimos la lista de IDs (ej: [1, 3]) en lista de Objetos Producto reales
         const productosVistos = idsVistos.map(id => tienda.getProductoPorId(id)).filter(p => p !== null);
-        
-        // Reutilizamos la función de la Tienda para pintar las tarjetas (¡Magia!)
         tienda.renderizarProductos('recentContainer', productosVistos);
     }
 
-    // D) Configurar botón de Cerrar Sesión
+    // E) Botón Logout
     const btnLogout = document.getElementById('logoutBtn');
     if (btnLogout) {
         btnLogout.addEventListener('click', () => {
@@ -63,35 +44,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // E) ESCUCHADOR PARA BOTONES "AÑADIR AL CARRITO"
-    document.body.addEventListener('click', (e) => {
-        // Buscamos si el clic fue en el botón o en algo dentro del botón (icono)
-        const btn = e.target.closest('.btn-add-cart');
-
-        if (btn) {
-            const idProducto = btn.dataset.id;
-            const productoInfo = tienda.getProductoPorId(idProducto);
-
-            if (productoInfo) {
-                carrito.agregarProducto(productoInfo);
-                
-                // --- CAMBIO: USAMOS EL TOAST EN VEZ DE ALERT ---
-                mostrarToast(`¡${productoInfo.nombre} añadido!`);
-            }
-        }
-    });
-
-    // Función para mostrar el Toast
-    function mostrarToast(mensaje) {
-        const toast = document.getElementById("toast-notification");
-        if (toast) {
-            toast.textContent = mensaje;
-            toast.className = "toast show"; // Mostrar
-            
-            // Ocultar a los 3 segundos
-            setTimeout(() => { 
-                toast.className = toast.className.replace("show", ""); 
-            }, 3000);
-        }
-    }
-    });
+    // HEMOS BORRADO EL LISTENER DE 'CLICK' Y EL TOAST 
+    // PORQUE YA NO SE PUEDE COMPRAR DESDE AQUÍ.
+});

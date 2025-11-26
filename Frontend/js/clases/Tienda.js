@@ -24,7 +24,6 @@ export class Tienda {
 
     getProductosPorCategoria(idCategoria) {
         if (!this.datos) return [];
-        // Convertimos a int porque el ID viene como número
         return this.datos.productos.filter(prod => prod.id_categoria === parseInt(idCategoria));
     }
 
@@ -49,6 +48,11 @@ export class Tienda {
         `).join('');
     }
 
+    /**
+     * Dibuja las tarjetas de productos.
+     * CORRECCIÓN: El botón ahora dice "VER OPCIONES" y redirige, 
+     * en lugar de añadir directamente al carrito.
+     */
     renderizarProductos(contenedorId, listaProductos) {
         const contenedor = document.getElementById(contenedorId);
         
@@ -66,7 +70,10 @@ export class Tienda {
                 <div class="card-info">
                     <h3 onclick="window.location.href='producto.html?id=${prod.id}'" style="cursor:pointer;">${prod.nombre}</h3>
                     <p class="price">${parseFloat(prod.precio).toFixed(2)}€</p>
-                    <button class="btn-add-cart" data-id="${prod.id}">Añadir</button>
+                    
+                    <button class="btn-primary" onclick="window.location.href='producto.html?id=${prod.id}'">
+                        VER OPCIONES
+                    </button>
                 </div>
             </article>
         `).join('');

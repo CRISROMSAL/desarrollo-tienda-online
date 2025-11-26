@@ -175,14 +175,17 @@ app.post('/api/login', (req, res) => {
 });
 
 /**
- * CARRITO: Valida precios en el servidor por seguridad.
+ * CARRITO (POST /api/carrito)
+ * Ruta protegida (usa middlewareAuth).
+ * Recibe el carrito del cliente y valida los precios en el servidor.
  */
 app.post('/api/carrito', middlewareAuth, (req, res) => {
     const { carrito } = req.body;
-    const usuarioLogueado = req.usuario; // Viene del token
+    const usuarioLogueado = req.usuario; 
 
     console.log(`🛒 Procesando pedido de ${usuarioLogueado.usuario}`);
 
+    // Validaciones básicas
     if (!carrito || !Array.isArray(carrito) || carrito.length === 0) {
         return res.status(400).json({ error: true, mensaje: 'El carrito está vacío o es inválido' });
     }
@@ -190,33 +193,51 @@ app.post('/api/carrito', middlewareAuth, (req, res) => {
     let totalReal = 0;
     const productosValidados = [];
 
-    // Validamos cada item contra la base de datos original (tienda.json)
+    // Recorremos cada producto que el cliente quiere comprar
     for (const itemCliente of carrito) {
-        const productoOriginal = tienda.productos.find(p => p.id === itemCliente.id);
+        
+        // --- CORRECCIÓN DE ID COMPUESTO ---
+        // El frontend manda "1-Rojo-M". Nosotros necesitamos solo el "1".
+        let idParaBuscar = itemCliente.id;
+        
+        // Si el ID es texto y tiene un guión, lo cortamos
+        if (typeof idParaBuscar === 'string' && idParaBuscar.includes('-')) {
+            idParaBuscar = idParaBuscar.split('-')[0]; // Se queda con la parte izquierda del guión
+        }
+        
+        // Lo convertimos a número para buscar en tienda.json
+        const idReal = parseInt(idParaBuscar);
+
+        // Buscamos el precio REAL en nuestra base de datos
+        const productoOriginal = tienda.productos.find(p => p.id === idReal);
 
         if (!productoOriginal) {
+            // Si el producto no existe en el servidor, error
             return res.status(400).json({ error: true, mensaje: `Producto ID ${itemCliente.id} ya no existe.` });
         }
 
-        // Validación de precio (Seguridad anti-hackeo)
-        if (productoOriginal.precio !== itemCliente.precio) {
+        // SEGURIDAD CRÍTICA: Comparamos el precio enviado vs el precio real
+        // Usamos parseFloat por si acaso vienen como strings
+        if (parseFloat(productoOriginal.precio) !== parseFloat(itemCliente.precio)) {
              return res.status(400).json({ 
                 error: true, 
                 mensaje: `Discrepancia de precio en ${productoOriginal.nombre}. Precio actual: ${productoOriginal.precio}€` 
             });
         }
 
+        // Si todo está bien, sumamos al total del servidor
         totalReal += productoOriginal.precio * itemCliente.cantidad;
+        
         productosValidados.push({
             id: productoOriginal.id,
-            nombre: productoOriginal.nombre,
+            nombre: itemCliente.nombre, // Guardamos el nombre con la variante (ej: Camisa (Rojo, M))
             precio: productoOriginal.precio,
             cantidad: itemCliente.cantidad,
             subtotal: productoOriginal.precio * itemCliente.cantidad
         });
     }
 
-    // Respuesta de éxito
+    // Generamos un ID de pedido y respondemos con éxito
     const pedidoId = `PED-${Date.now()}-${usuarioLogueado.id}`;
     res.json({
         error: false,
