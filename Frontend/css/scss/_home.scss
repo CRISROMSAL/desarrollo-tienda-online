@@ -1,0 +1,110 @@
+//Aquí va la logica del Dashboard, la rejilla de categorías, el carrusel y los vistos recientemente.
+
+/* --- HERO --- */
+.hero-section {
+    text-align: center;
+    padding: 40px;
+    background: $glass;
+    border-radius: 15px;
+    margin-bottom: 40px;
+    box-shadow: $shadow;
+    h1 { font-size: 2.5rem; margin-bottom: 10px; }
+}
+
+/* --- REJILLA DE CATEGORÍAS (Cuadradas y Centradas) --- */
+.grid-categories, #categoriesContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 50px;
+
+    .card-category {
+        width: 260px; /* Ancho fijo */
+        flex-grow: 0;
+        
+        img {
+            height: 300px;
+            border-radius: 12px 12px 0 0;
+        }
+
+        h3 {
+            margin: 15px 0;
+            color: $secondary;
+            text-transform: uppercase;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+    }
+}
+
+/* --- REJILLA DE PRODUCTOS (Genérica) --- */
+.grid-products {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 50px;
+
+    .card-product {
+        width: calc(33.333% - 30px);
+        min-width: 260px;
+        max-width: 350px;
+    }
+
+    @include tablet {
+        .card-product { width: calc(50% - 30px); }
+    }
+
+    @include mobile {
+        .card-product, .card-category { width: 100%; }
+    }
+}
+
+/* --- CARRUSEL DESTACADOS (Sobreescribe grid normal) --- */
+#featuredContainer {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    justify-content: flex-start !important;
+    scroll-snap-type: x mandatory;
+    gap: 25px;
+    padding-bottom: 20px;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+
+    .card-product {
+        min-width: 280px !important;
+        width: 280px !important;
+        max-width: 280px !important;
+        flex-shrink: 0 !important;
+        scroll-snap-align: start;
+        margin-bottom: 5px;
+    }
+
+    /* Scrollbar Rosa */
+    &::-webkit-scrollbar { height: 8px; }
+    &::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.5); border-radius: 10px; }
+    &::-webkit-scrollbar-thumb { background: $primary; border-radius: 10px; &:hover { background: $secondary; } }
+}
+
+/* --- VISTOS RECIENTEMENTE (4 por fila) --- */
+#recentContainer {
+    gap: 20px;
+
+    .card-product {
+        width: calc(25% - 20px) !important;
+        min-width: 200px !important;
+        height: auto;
+
+        img { height: 250px; }
+    }
+
+    @include tablet {
+        .card-product { width: calc(50% - 20px) !important; }
+    }
+
+    @include mobile {
+        .card-product { width: 100% !important; }
+    }
+}

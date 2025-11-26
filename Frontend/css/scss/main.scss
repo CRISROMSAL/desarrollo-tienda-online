@@ -1,0 +1,13 @@
+// 1. Configuración
+@import 'variables';
+@import 'mixins';
+
+// 2. Base
+@import 'base';
+
+// 3. Estructura y Componentes
+@import 'layout';
+@import 'components';
+
+// 4. Páginas específicas
+@import 'home';

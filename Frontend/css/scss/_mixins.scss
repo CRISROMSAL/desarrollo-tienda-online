@@ -1,0 +1,12 @@
+// MEDIA QUERIES (Para hacer la web responsive)
+@mixin tablet {
+    @media (max-width: 900px) { @content; }
+}
+
+@mixin mobile {
+    @media (max-width: 600px) { @content; }
+}
+
+@mixin mobile-large {
+    @media (max-width: 768px) { @content; }
+}

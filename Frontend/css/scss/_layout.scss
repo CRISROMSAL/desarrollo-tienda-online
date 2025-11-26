@@ -1,0 +1,166 @@
+/* --- NAVBAR --- */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(193, 39, 45, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    .logo-img { 
+        height: 50px; 
+        width: auto; 
+        animation: floatLogo 4s ease-in-out infinite; 
+    }
+
+    .user-actions { 
+        display: flex; 
+        gap: 20px; 
+        align-items: center; 
+        font-weight: 600;
+    }
+
+    @include mobile-large {
+        flex-direction: column; 
+        gap: 10px;
+    }
+}
+
+/* --- FOOTER --- */
+.footer {
+    background: $bg-footer; /* Color sólido */
+    border-top: 1px solid rgba(245, 122, 170, 0.3);
+    color: $text-main;
+    text-align: center;
+    padding: 40px 20px;
+    margin-top: auto;
+    width: 100%;
+    font-family: $font-main;
+    position: relative; 
+    z-index: 10;
+
+    p {
+        margin: 8px 0;
+        font-size: 0.95rem;
+        line-height: 1.6;
+
+        &:nth-child(1), &:nth-child(2) {
+            font-weight: 700;
+            color: $secondary;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+        }
+
+        &:nth-child(3) {
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        &:last-child {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            font-style: italic;
+        }
+    }
+}
+
+/* --- CONTENEDORES DE PÁGINAS --- */
+.container {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+    flex: 1;
+}
+
+/* LOGIN LAYOUT */
+.login-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+
+    .login-box {
+        background: $glass;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(193, 39, 45, 0.1);
+        padding: 50px;
+        border-radius: 15px;
+        box-shadow: $shadow;
+        width: 100%;
+        max-width: 500px;
+        text-align: center;
+        animation: slideIn 0.8s ease-out;
+
+        @include mobile-large { width: 90%; padding: 30px; }
+    }
+
+    .login-logo-img {
+        max-width: 250px;      
+        margin-bottom: 50px;   
+        filter: drop-shadow(0 10px 15px rgba(193, 39, 45, 0.3)); 
+        animation: floatLogo 3s ease-in-out infinite; 
+        position: relative;
+        z-index: 10;
+    }
+    
+    .subtitle { margin-bottom: 25px; font-size: 0.95rem; color: $text-main; }
+    .login-footer { margin-top: 25px; font-size: 0.85rem; color: $text-main; a { font-weight: bold; text-decoration: underline; } }
+}
+
+/* PRODUCTO DETALLE LAYOUT */
+.product-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    background: $glass;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: $shadow;
+
+    @include mobile-large { grid-template-columns: 1fr; }
+
+    .product-image-container img {
+        width: 100%;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+}
+
+/* CARRITO LAYOUT */
+.cart-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+
+    @include mobile-large { grid-template-columns: 1fr; }
+}
+
+.cart-items {
+    background: $glass;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: $shadow;
+}
+
+.cart-summary {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    height: fit-content;
+    box-shadow: $shadow;
+    border: 1px solid rgba(193, 39, 45, 0.1);
+
+    .summary-row { 
+        display: flex; justify-content: space-between; margin-bottom: 15px; 
+        &.total { font-size: 1.4rem; font-weight: bold; color: $secondary; border-top: 1px solid #eee; padding-top: 15px; }
+    }
+}

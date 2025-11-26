@@ -1,0 +1,55 @@
+/* --- FUENTES IMPORTADAS --- */
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;600;700&family=Raleway:wght@300;400;600;700&display=swap');
+
+/* --- RESET BÁSICO --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    min-height: 100vh;
+}
+
+/* --- ESTILOS GENERALES Y FONDO --- */
+body {
+    font-family: $font-main;
+    color: $text-main;
+    background: linear-gradient(-45deg, #f9dde9, #fce4ec, #f8bbd0, #f48fb1);
+    background-size: 400% 400%;
+    background-attachment: fixed;
+    animation: gradientAnimation 15s ease infinite;
+    display: flex;
+    flex-direction: column;
+}
+
+h1, h2, h3 {
+    font-family: $font-title;
+    color: $secondary;
+}
+
+a { 
+    text-decoration: none; 
+    color: $secondary; 
+    transition: 0.3s; 
+    
+    &:hover { color: $primary; }
+}
+
+/* --- ANIMACIONES --- */
+@keyframes gradientAnimation {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+@keyframes floatLogo {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
