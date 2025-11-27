@@ -463,7 +463,7 @@ input:focus {
     .login-box { width: 90%; padding: 30px; }
 }
 
-/* --- ESTILOS PARA CARRITO VACÍO --- */
+/* ESTILOS PARA CARRITO VACÍO */
 .cart-empty {
     text-align: center;
     padding: 40px 20px;
