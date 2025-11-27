@@ -1,7 +1,7 @@
-/* --- FUENTES IMPORTADAS --- */
+/*  FUENTES IMPORTADAS  */
 @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;600;700&family=Raleway:wght@300;400;600;700&display=swap');
 
-/* --- VARIABLES (ROOT) --- */
+/*  VARIABLES (ROOT)  */
 :root {
     --primary: #F57AAA;       /* Rosa Botones */
     --primary-hover: #f06292;
@@ -11,7 +11,7 @@
     --shadow: 0 8px 32px rgba(193, 39, 45, 0.15);
 }
 
-/* --- RESET BÁSICO --- */
+/*  RESET BÁSICO  */
 * {
     margin: 0;
     padding: 0;
@@ -23,7 +23,7 @@ html, body {
     min-height: 100vh;
 }
 
-/* --- FONDO ANIMADO --- */
+/*  FONDO ANIMADO  */
 body {
     font-family: 'Raleway', sans-serif;
     color: var(--text-main);
@@ -61,9 +61,9 @@ h1, h2, h3 {
 a { text-decoration: none; color: var(--secondary); transition: 0.3s; }
 a:hover { color: var(--primary); }
 
-/* =========================================
+/* 
    NAVBAR (Barra de Navegación)
-   ========================================= */
+ */
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -80,7 +80,7 @@ a:hover { color: var(--primary); }
 .logo-img { 
     height: 50px; 
     width: auto; 
-    animation: floatLogo 4s ease-in-out infinite; /* Usa la animación correcta */
+    animation: floatLogo 4s ease-in-out infinite; 
 }
 
 .user-actions { 
@@ -106,9 +106,9 @@ a:hover { color: var(--primary); }
     color: white;
 }
 
-/* =========================================
+/* 
    LOGIN PAGE
-   ========================================= */
+  */
 .login-container {
     flex: 1;
     display: flex;
@@ -136,14 +136,13 @@ a:hover { color: var(--primary); }
     margin-bottom: 50px;   
     filter: drop-shadow(0 10px 15px rgba(193, 39, 45, 0.3)); 
     
-    /* CORRECCIÓN AQUÍ: Antes ponía 'float', ahora pone 'floatLogo' */
     animation: floatLogo 3s ease-in-out infinite; 
     
     position: relative;
     z-index: 10;
 }
 
-/* --- CLASES NUEVAS PARA LOS TEXTOS <P> --- */
+/*  CLASES PARA LOS TEXTOS <P> */
 .subtitle {
     margin-bottom: 25px;
     font-size: 0.95rem;
@@ -179,9 +178,9 @@ input:focus {
     box-shadow: 0 0 8px rgba(245, 122, 170, 0.3);
 }
 
-/* =========================================
+/* 
    DASHBOARD & TIENDA
-   ========================================= */
+ */
 .container {
     max-width: 1200px;
     margin: 30px auto;
@@ -199,7 +198,7 @@ input:focus {
 }
 .hero-section h1 { font-size: 2.5rem; margin-bottom: 10px; }
 
-/* --- 1. ESTILO PARA CATEGORÍAS (El que te gustaba: 4 arriba, 3 abajo centrados) --- */
+/* 1. ESTILO PARA CATEGORÍAS */
 .grid-categories {
     display: flex;
     flex-wrap: wrap;
@@ -209,17 +208,17 @@ input:focus {
 }
 
 .grid-categories .card-category {
-    width: 260px; /* Ancho fijo para que quepan 4 cómodamente */
-    /* ... resto de estilos de tarjeta ... */
+    width: 260px; /* Ancho fijo para que quepan 4 */
+    
     background: rgba(255, 255, 255, 0.9);
     border-radius: 12px;
     border: 1px solid rgba(255,255,255,0.5);
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
     display: flex; flex-direction: column; /* Para que la imagen y texto se ordenen */
-    overflow: hidden; /* Importante para que la imagen no se salga de las esquinas */
+    overflow: hidden; /*para que la imagen no se salga de las esquinas */
 }
 
-/* --- 2. ESTILO PARA PRODUCTOS (El nuevo: Estrictamente 3 por fila) --- */
+/* --- 2. ESTILO PARA PRODUCTOS (3 por fila) --- */
 .grid-products {
     display: flex;
     flex-wrap: wrap;
@@ -313,9 +312,9 @@ input:focus {
 
 .btn-back { display: inline-block; margin-bottom: 0px; font-weight: bold; }
 
-/* =========================================
+/* 
    PÁGINA DETALLE DE PRODUCTO
-   ========================================= */
+*/
 .product-layout {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -357,9 +356,9 @@ input:focus {
     box-shadow: 0 3px 10px rgba(245, 122, 170, 0.4);
 }
 
-/* =========================================
+/* 
    PÁGINA CARRITO
-   ========================================= */
+*/
 .cart-layout {
     display: grid;
     grid-template-columns: 2fr 1fr;
@@ -408,16 +407,12 @@ input:focus {
 .summary-row { display: flex; justify-content: space-between; margin-bottom: 15px; }
 .summary-row.total { font-size: 1.4rem; font-weight: bold; color: var(--secondary); border-top: 1px solid #eee; padding-top: 15px; }
 
-/* =========================================
-   FOOTER (Actualizado y Estilizado)
-   ========================================= */
+/* 
+   FOOTER 
+*/
 .footer {
-   /* ⚠️ CAMBIO CLAVE: Color sólido (Hexadecimal) en vez de rgba */
+   
     background: #fce4ec; 
-    
-    /* Quitamos el blur porque ya no es transparente */
-    /* backdrop-filter: blur(5px); <-- Bórralo o coméntalo */
-    
     border-top: 1px solid rgba(245, 122, 170, 0.3);
     color: var(--text-main);
     text-align: center;
@@ -425,8 +420,6 @@ input:focus {
     margin-top: auto;
     width: 100%;
     font-family: 'Raleway', sans-serif;
-    
-    /* Para que tape bien lo de atrás */
     position: relative; 
     z-index: 10;
 }
@@ -437,12 +430,12 @@ input:focus {
     line-height: 1.6;
 }
 
-/* --- DETALLES DE DISEÑO --- */
+/*DETALLES DE DISEÑO*/
 
 /* 1. Destacamos Instagram y Correo (las dos primeras líneas) */
 .footer p:nth-child(1), .footer p:nth-child(2) {
     font-weight: 700;
-    color: var(--secondary); /* Usamos el rojo elegante */
+    color: var(--secondary); 
     font-size: 1rem;
     letter-spacing: 0.5px;
 }
@@ -493,9 +486,9 @@ input:focus {
     margin: 0;
 }
 
-/* --- CARRUSEL HORIZONTAL PARA DESTACADOS (Añadir al final de styles.css) --- */
+/*CARRUSEL HORIZONTAL PARA DESTACADOS */
 
-/* 1. Convertimos SOLO el contenedor de destacados en carrusel */
+/* 1. Convertimos el contenedor de destacados en carrusel */
 #featuredContainer {
     display: flex;              /* En fila, no en rejilla */
     overflow-x: auto;           /* Scroll horizontal si no caben */
@@ -508,16 +501,15 @@ input:focus {
     -webkit-overflow-scrolling: touch; /* Para móviles */
 }
 
-/* 2. Ajustamos las tarjetas DENTRO de este carrusel */
+/* 2. Ajustamos las tarjetas dentro de este carrusel */
 #featuredContainer .card-product {
-    min-width: 280px;           /* ANCHO FIJO: Importante para que no se encojan */
+    min-width: 280px;           /* ANCHO FIJO */
     max-width: 280px;
     scroll-snap-align: start;   /* El efecto imán al principio de la tarjeta */
     margin-bottom: 5px;         /* Pequeño margen por si la sombra sobresale */
 }
 
 /* 3. Personalizamos la barra de scroll (Scrollbar) para que sea Rosa */
-/* (Solo funciona en Chrome, Edge, Safari, Opera) */
 #featuredContainer::-webkit-scrollbar {
     height: 8px;                /* Altura de la barra horizontal */
 }
@@ -536,12 +528,12 @@ input:focus {
     background: var(--secondary); /* Color al pasar el ratón (Rojo) */
 }
 
-/* --- CATEGORÍAS: RECTANGULARES Y CENTRADAS --- */
+/* CATEGORÍAS: RECTANGULARES Y CENTRADAS */
 
 #categoriesContainer {
     display: flex;              /* Usamos Flex para controlar la alineación */
     flex-wrap: wrap;            /* Permite que bajen a la siguiente línea */
-    justify-content: center;    /* ¡LA CLAVE! Centra todo (los 3 de abajo quedan en medio) */
+    justify-content: center;    /* Centra todo (los 3 de abajo quedan en medio) */
     gap: 30px;                  /* Espacio entre tarjetas */
     margin-bottom: 50px;
 }
@@ -559,7 +551,7 @@ input:focus {
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
 }
 
-/* Efecto Hover (al pasar el ratón) sutil y elegante */
+/* Efecto Hover (al pasar el ratón) */
 #categoriesContainer .card-category:hover {
     transform: translateY(-8px);
     box-shadow: 0 15px 30px rgba(193, 39, 45, 0.15);
@@ -582,12 +574,12 @@ input:focus {
     letter-spacing: 1px;
 }
 
-/* --- CORRECCIÓN FINAL: RESTAURAR CARRUSEL DESTACADOS --- */
+/* RESTAURAR CARRUSEL DESTACADOS */
 /* (Esto sobreescribe la regla de "3 por fila" solo para esta sección) */
 
 #featuredContainer {
     display: flex !important;       /* Forzamos que sea flexible */
-    flex-wrap: nowrap !important;   /* ¡IMPORTANTE! Prohibido saltar de línea */
+    flex-wrap: nowrap !important;   /* Prohibido saltar de línea */
     overflow-x: auto !important;    /* Scroll horizontal activado */
     justify-content: flex-start !important; /* Alineado a la izquierda para empezar */
     
@@ -596,24 +588,24 @@ input:focus {
     padding-bottom: 20px;           /* Espacio para la barra de scroll */
 }
 
-/* Ajustamos las tarjetas DENTRO del carrusel para que no sean flexibles */
+/* Ajustamos las tarjetas dentro del carrusel para que no sean flexibles */
 #featuredContainer .card-product {
     /* Ancho fijo y rígido para el slider */
     min-width: 280px !important;
     width: 280px !important;
     max-width: 280px !important;
     
-    flex-shrink: 0 !important;      /* No te encojas nunca */
+    flex-shrink: 0 !important;      /* no se encoge nunca */
     scroll-snap-align: start;       /* Alineación imán */
     margin-bottom: 5px;
 }
 
-/* Personalización de la barra de scroll (opcional, para que quede rosa) */
+/* Personalización de la barra de scroll */
 #featuredContainer::-webkit-scrollbar { height: 8px; }
 #featuredContainer::-webkit-scrollbar-track { background: rgba(255,255,255,0.5); border-radius: 10px; }
 #featuredContainer::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
 
-/* --- INLINE VALIDATION (Mensajes en pantalla) --- */
+/* INLINE VALIDATION (Mensajes en pantalla) */
 
 /* Estilo base para todos los mensajes */
 .feedback-msg {
@@ -666,7 +658,7 @@ input:focus {
     bottom: 50px; /* Sube un poquito al aparecer */
 }
 
-/* --- AJUSTE: VISTOS RECIENTEMENTE (4 POR FILA) --- */
+/* VISTOS RECIENTEMENTE (4 POR FILA)*/
 /* Sobreescribimos la regla general solo para esta sección */
 
 #recentContainer {
